@@ -61,7 +61,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/button_shape"
-        android:text="@string/submit"
+        android:text="@string/sign_up"
         android:textColor="#FFFFFF"
         android:layout_marginTop="35dp"/>
 
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@id/signIn_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="@string/already_an_user_sign_in_here"
+        android:text="@string/already_an_user_log_in_here"
         android:layout_marginTop="10dp"/>
 
 
