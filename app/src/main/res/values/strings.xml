@@ -11,4 +11,8 @@
     <string name="title_home">Home</string>
     <string name="title_explore">Explore</string>
     <string name="title_notifications">Notifications</string>
+    <string name="tab_text_1">All</string>
+    <string name="tab_text_2">Going</string>
+    <string name="tab_text_3">Past</string>
+    <string name="title_activity_explore_maps">Map</string>
 </resources>
