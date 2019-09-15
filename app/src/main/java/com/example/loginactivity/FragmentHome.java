@@ -1,7 +1,9 @@
 package com.example.loginactivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,8 @@ import android.view.ViewGroup;
 import com.example.loginactivity.main.SectionsPagerAdapter;
 
 public class FragmentHome extends Fragment {
+
+    FloatingActionButton addEventButton;
 
     @Override
     public View onCreateView(
@@ -31,6 +35,16 @@ public class FragmentHome extends Fragment {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs =getView().findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
+        addEventButton = getActivity().findViewById(R.id.fab_event_adder);
+
+        addEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), CreateEvent.class));
+            }
+        });
+
     }
 
 }

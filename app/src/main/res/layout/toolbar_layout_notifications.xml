@@ -14,19 +14,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MeetUp"
-            android:textSize="30sp"
+            android:text="Notifications"
+            android:textSize="23sp"
             android:textColor="#FFFFFF"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/member_white"
-            android:background="@color/colorPrimary"/>
 
     </RelativeLayout>
 
