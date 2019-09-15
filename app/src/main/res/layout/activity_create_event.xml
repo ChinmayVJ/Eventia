@@ -53,7 +53,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:text="Start a new Meetup Event"
                         android:textColor="#000000"
-                        android:textSize="25sp"
+                        android:textSize="22sp"
                         android:layout_marginTop="10dp"
                         android:gravity="center"/>
 
@@ -64,7 +64,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:text="Find your people and do your thing - together"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:textColor="#2C2B2B"
                         android:layout_marginTop="5dp"
                         android:paddingLeft="10dp"
@@ -102,7 +102,7 @@
                         android:layout_marginTop="20dp"
                         android:text="Give your event a name. Describe who should join and what you'll do."
                         android:textColor="#2C2B2B"
-                        android:textSize="20sp"/>
+                        android:textSize="17sp"/>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/group_name_text"
@@ -170,7 +170,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_marginLeft="15dp"
-                        android:textSize="22sp"
+                        android:textSize="17sp"
                         android:text="Location"
                         android:textColor="#000000"/>
 
@@ -181,7 +181,7 @@
                         app:layout_constraintTop_toBottomOf="@id/location_text"
                         app:layout_constraintStart_toStartOf="@id/location_text"
                         android:src="@drawable/location_icon"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_marginTop="15dp"/>
 
                     <TextView
                         android:id="@+id/event_location_bldg"
@@ -221,7 +221,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_marginLeft="15dp"
-                        android:textSize="22sp"
+                        android:textSize="17sp"
                         android:text="Interests"
                         android:textColor="#000000"/>
 

@@ -7,16 +7,28 @@
     <include layout="@layout/toolbar_layout_notifications"
         android:id="@+id/toolbar_notifications" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Notifications Page Fragment"
-        android:textSize="25sp"
-        android:textColor="#0000FF"
+    <ImageView
+        android:id="@+id/notification_icon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/ic_notifications_black_24dp"
+        android:alpha="0.5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/notification_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:text="Nothing yet, But Stay Tuned"
+        android:textSize="20sp"
+
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

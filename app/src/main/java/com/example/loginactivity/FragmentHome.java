@@ -13,12 +13,16 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.loginactivity.main.SectionsPagerAdapter;
 
 public class FragmentHome extends Fragment {
 
     FloatingActionButton addEventButton;
+    ImageView profileImage;
 
     @Override
     public View onCreateView(
@@ -37,6 +41,7 @@ public class FragmentHome extends Fragment {
         tabs.setupWithViewPager(viewPager);
 
         addEventButton = getActivity().findViewById(R.id.fab_event_adder);
+        profileImage = getActivity().findViewById(R.id.profile_icon);
 
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +49,15 @@ public class FragmentHome extends Fragment {
                 startActivity(new Intent(getActivity(), CreateEvent.class));
             }
         });
+
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), EventInfo.class));
+
+            }
+        });
+
 
     }
 
