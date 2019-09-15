@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EventInfo">
+
+    <include layout="@layout/toolbar_layout_event_info"
+        android:id="@+id/toolbar_event_info"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_event_info"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <!--Image of Event Handler's Organization-->
+            <ImageView
+                android:id="@+id/company_pic"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/company_pic"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="15dp"/>
+
+            <!--Name of Organization-->
+            <TextView
+                android:id="@+id/event_handler_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alacrity India"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                app:layout_constraintLeft_toRightOf="@id/company_pic"
+                app:layout_constraintTop_toTopOf="@id/company_pic"
+                android:layout_marginLeft="15dp"/>
+
+            <!--Type of Group-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Public Group"
+                android:textSize="17sp"
+                app:layout_constraintTop_toBottomOf="@id/event_handler_name"
+                app:layout_constraintStart_toStartOf="@id/event_handler_name"/>
+
+            <!--Name of Event-->
+            <TextView
+                android:id="@+id/event_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Founders Meetup 3.0"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="@id/company_pic"
+                app:layout_constraintTop_toBottomOf="@id/company_pic"
+                android:layout_marginTop="20dp"/>
+
+            <!--Button to join the Group-->
+            <Button
+                android:id="@+id/join_group_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_shape"
+                android:text="Join this group"
+                android:textColor="#FFFFFF"
+                app:layout_constraintTop_toBottomOf="@id/event_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="20dp" />
+
+            <!--Details of Event-->
+            <LinearLayout
+                android:id="@+id/event_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/join_group_button"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="15dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/time_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:src="@drawable/time_icon"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:id="@+id/event_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sunday 15 September"
+                        android:textSize="17sp"
+                        android:textColor="#2C2B2B"
+                        app:layout_constraintLeft_toRightOf="@id/time_icon"
+                        app:layout_constraintTop_toTopOf="@id/time_icon"
+                        android:layout_marginLeft="10dp"/>
+
+                    <TextView
+                        android:id="@+id/event_time_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="9:30 am - 11:30 am"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@id/event_date"
+                        app:layout_constraintTop_toBottomOf="@id/event_date"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/location_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:src="@drawable/location_icon"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:id="@+id/event_location_bldg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Alacrity India Innovation Centre"
+                        android:textSize="17sp"
+                        android:textColor="#2C2B2B"
+                        app:layout_constraintLeft_toRightOf="@id/location_icon"
+                        app:layout_constraintTop_toTopOf="@id/location_icon"
+                        android:layout_marginLeft="10dp"/>
+
+                    <TextView
+                        android:id="@+id/event_location_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pune, India"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@id/event_location_bldg"
+                        app:layout_constraintTop_toBottomOf="@id/event_location_bldg"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" >
+
+                    <ImageView
+                        android:id="@+id/host_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:src="@drawable/host_icon"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:id="@+id/date_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hosted by Tushar Shetty"
+                        android:textSize="17sp"
+                        android:textColor="#2C2B2B"
+                        app:layout_constraintLeft_toRightOf="@id/host_icon"
+                        app:layout_constraintTop_toTopOf="@id/host_icon"
+                        android:layout_marginLeft="10dp"/>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" >
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/no_of_mems_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:src="@drawable/member"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="15dp" />
+
+                    <TextView
+                        android:id="@+id/number_of_members"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="42 people are going"
+                        android:textSize="17sp"
+                        android:textColor="#2C2B2B"
+                        app:layout_constraintLeft_toRightOf="@id/no_of_mems_image"
+                        app:layout_constraintTop_toTopOf="@id/no_of_mems_image"
+                        android:layout_marginLeft="10dp"/>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <!--Description of the Event-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/event_details"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="10dp"
+                android:text="Glad to welcome our power-packed speakers Christian Hujer Ashwinee Singh, SPC4®,CSPO® Rohan B. along with a refreshing cup of #coffee for a stimulating conversation around Agile transformation, challenges, agony and ecstasy of any change.\n
+Join to hear to some of the #Best Thought Leaders and participants from #Pune on their thoughts and wisdom on #Agile, #DevOps, #DesignThinking, #LEAN and
+#Kanban #transformation\n\n
+Date: 15-September-2019 (Sunday)\n
+Location: Alacrity India Innovation Center, Pune\n
+Time : 9:30 AM To 12:30 PM\n
+Registration Link: https://lnkd.in/fB786-M\n
+\nRush in early and confirm your seats as they are very limited and are filling up fast"
+                android:textSize="20sp"
+                android:textColor="#202020"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
