@@ -101,7 +101,7 @@
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="20dp"
                         android:text="Give your event a name. Describe who should join and what you'll do."
-                        android:textColor="#2C2B2B"
+                        android:textColor="#000000"
                         android:textSize="17sp"/>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -124,10 +124,29 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/description_text"
+                        android:id="@+id/event_name_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/group_name_text"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Event Name" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/description_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/event_name_text"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_marginLeft="15dp"
@@ -149,11 +168,101 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/location_card"
+                android:id="@+id/date_time_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/group_des_card"
+                android:layout_marginTop="1dp"
+                android:elevation="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/date_time_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="17sp"
+                        android:text="Date and Time"
+                        android:textColor="#000000"/>
+
+                    <ImageView
+                        android:id="@+id/calender_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/date_time_text"
+                        app:layout_constraintStart_toStartOf="@id/date_time_text"
+                        android:src="@drawable/location_icon"
+                        android:layout_marginTop="15dp"/>
+
+                    <EditText
+                        android:id="@+id/date_info"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Date"
+                        android:textSize="17sp"
+                        android:textColor="#2C2B2B"
+                        android:inputType="date"
+                        app:layout_constraintLeft_toRightOf="@id/calender_icon"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/calender_icon"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="15dp"/>
+
+                    <ImageView
+                        android:id="@+id/time_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/calender_icon"
+                        app:layout_constraintStart_toStartOf="@id/calender_icon"
+                        android:src="@drawable/location_icon"
+                        android:layout_marginTop="25dp"/>
+
+                    <EditText
+                        android:id="@+id/time_info"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Time"
+                        android:textSize="17sp"
+                        android:textColor="#2C2B2B"
+                        android:inputType="time"
+                        app:layout_constraintLeft_toRightOf="@id/time_icon"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/time_icon"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="15dp"/>
+
+                    <EditText
+                        android:id="@+id/duration_info"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Duration"
+                        android:textSize="17sp"
+                        android:textColor="#2C2B2B"
+                        android:inputType="number"
+                        app:layout_constraintLeft_toRightOf="@id/time_icon"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/time_info"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="25dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/location_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date_time_card"
                 android:layout_marginTop="1dp"
                 android:elevation="2dp">
 
@@ -183,16 +292,18 @@
                         android:src="@drawable/location_icon"
                         android:layout_marginTop="15dp"/>
 
-                    <TextView
+                    <EditText
                         android:id="@+id/event_location_bldg"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Pune"
+                        android:hint="Pune"
                         android:textSize="17sp"
                         android:textColor="#2C2B2B"
                         app:layout_constraintLeft_toRightOf="@id/location_icon"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="@id/location_icon"
-                        android:layout_marginLeft="10dp"/>
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="15dp"/>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
