@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()){
                             startActivity(new Intent(getApplicationContext(), HomePage.class));
-                            finish();
                             dialog.dismiss();
+                            finish();
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), RegistrationActivity.class));
+                finish();
             }
         });
     }

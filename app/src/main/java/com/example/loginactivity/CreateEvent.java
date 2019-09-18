@@ -25,14 +25,9 @@ public class CreateEvent extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), HomePage.class));
+                finish();
             }
         });
 
-        /*companyPic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), EventInfo.class));
-            }
-        });*/
     }
 }

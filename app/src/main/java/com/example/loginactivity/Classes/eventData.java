@@ -7,26 +7,28 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class eventData {
-    String groupName;
-    String eventName;
-    String description;
-    Date dateOfEvent;
-    Time startTime;
-    int duration;
-    LatLng location;
-    ArrayList<String> interests;
-    int noOfMembers;
+    private String hostName;
+    private String groupName;
+    private String eventName;
+    private String description;
+    private Date dateOfEvent;
+    private Time startTime;
+    private int duration;
+    private String address;
+    private ArrayList<String> interests;
+    private int noOfMembers;
 
     public eventData(){}
 
-    public eventData(String groupName, String eventName, String description, Date dateOfEvent, Time startTime, int duration, LatLng location, ArrayList<String> interests, int noOfMembers) {
+    public eventData(String hostName, String groupName, String eventName, String description, Date dateOfEvent, Time startTime, int duration, String address, ArrayList<String> interests, int noOfMembers) {
+        this.hostName = hostName;
         this.groupName = groupName;
         this.eventName = eventName;
         this.description = description;
         this.dateOfEvent = dateOfEvent;
         this.startTime = startTime;
         this.duration = duration;
-        this.location = location;
+        this.address = address;
         this.interests = interests;
         this.noOfMembers = noOfMembers;
     }
@@ -55,12 +57,20 @@ public class eventData {
         this.description = description;
     }
 
-    public LatLng getLocation() {
-        return location;
+    public String getHostName() {
+        return hostName;
     }
 
-    public void setLocation(LatLng location) {
-        this.location = location;
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public ArrayList<String> getInterests() {
