@@ -5,35 +5,38 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
 public class UserData {
-    String name;
-    LatLng userLocation;
+
+    String Name;
+    String userAddress;
     ArrayList<String> memberOfGroup;
+    ArrayList<String> hostedEvents;
     ArrayList<String> userInterests;
 
     public UserData() {
     }
 
-    public UserData(String name, LatLng userLocation, ArrayList<String> memberOfGroup, ArrayList<String> userInterests) {
-        this.name = name;
-        this.userLocation = userLocation;
+    public UserData(String name, String userAddress, ArrayList<String> memberOfGroup, ArrayList<String> hostedEvents, ArrayList<String> userInterests) {
+        Name = name;
+        this.userAddress = userAddress;
         this.memberOfGroup = memberOfGroup;
+        this.hostedEvents = hostedEvents;
         this.userInterests = userInterests;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        Name = name;
     }
 
-    public LatLng getUserLocation() {
-        return userLocation;
+    public String getUserAddress() {
+        return userAddress;
     }
 
-    public void setUserLocation(LatLng userLocation) {
-        this.userLocation = userLocation;
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
 
     public ArrayList<String> getMemberOfGroup() {
@@ -42,6 +45,14 @@ public class UserData {
 
     public void setMemberOfGroup(ArrayList<String> memberOfGroup) {
         this.memberOfGroup = memberOfGroup;
+    }
+
+    public ArrayList<String> getHostedEvents() {
+        return hostedEvents;
+    }
+
+    public void setHostedEvents(ArrayList<String> hostedEvents) {
+        this.hostedEvents = hostedEvents;
     }
 
     public ArrayList<String> getUserInterests() {

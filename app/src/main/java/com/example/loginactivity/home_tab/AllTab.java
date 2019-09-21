@@ -14,12 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.loginactivity.Classes.DataViewHolder;
 import com.example.loginactivity.Classes.EventData;
 import com.example.loginactivity.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class AllTab extends Fragment{
 
@@ -55,7 +57,6 @@ public class AllTab extends Fragment{
         dataRecyclerView.setHasFixedSize( true );
         dataRecyclerView.setLayoutManager( layoutManager );
 
-
     }
 
     @Override
@@ -74,6 +75,7 @@ public class AllTab extends Fragment{
             @Override
             protected void populateViewHolder(DataViewHolder dataViewHolder, EventData eventData, int i) {
                 EventData evData = eventData;
+                final int position = i;
 
                 dataViewHolder.setEventHandlerName(evData.getGroupName());
                 dataViewHolder.setEventName(evData.getEventName());
@@ -81,51 +83,16 @@ public class AllTab extends Fragment{
                 dataViewHolder.setEventLocation(evData.getAddress());
                 dataViewHolder.setNoOfMembers(Integer.toString(evData.getNoOfMembers()));
 
-                dataViewHolder.dataView.setOnClickListener(new View.OnClickListener() {
+                dataViewHolder.getDataView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(getActivity(), "Clicked on the Item Card", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Clicked on the Item Card : " + position, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         };
 
         dataRecyclerView.setAdapter(fAdapter);
-    }
-
-    public static class DataViewHolder extends RecyclerView.ViewHolder{
-
-        View dataView;
-
-        public DataViewHolder(@NonNull View itemView) {
-            super(itemView);
-            dataView = itemView;
-        }
-
-        public void setEventHandlerName(String eventHandlerName){
-            TextView event_handler_name = dataView.findViewById(R.id.event_handler_name);
-            event_handler_name.setText(eventHandlerName);
-        }
-
-        public void setEventName(String eventName){
-            TextView event_name = dataView.findViewById(R.id.event_name);
-            event_name.setText(eventName);
-        }
-
-        public void setEventTime(String eventTime){
-            TextView event_time = dataView.findViewById(R.id.event_time);
-            event_time.setText(eventTime);
-        }
-
-        public void setEventLocation(String eventLocation){
-            TextView event_location = dataView.findViewById(R.id.event_location);
-            event_location.setText(eventLocation);
-        }
-
-        public void setNoOfMembers(String noOfMembers){
-            TextView no_of_members = dataView.findViewById(R.id.no_of_mems);
-            no_of_members.setText(noOfMembers);
-        }
     }
 
 }
