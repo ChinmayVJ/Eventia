@@ -4,16 +4,16 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
-public class userData {
+public class UserData {
     String name;
     LatLng userLocation;
     ArrayList<String> memberOfGroup;
     ArrayList<String> userInterests;
 
-    public userData() {
+    public UserData() {
     }
 
-    public userData(String name, LatLng userLocation, ArrayList<String> memberOfGroup, ArrayList<String> userInterests) {
+    public UserData(String name, LatLng userLocation, ArrayList<String> memberOfGroup, ArrayList<String> userInterests) {
         this.name = name;
         this.userLocation = userLocation;
         this.memberOfGroup = memberOfGroup;

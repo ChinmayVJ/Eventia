@@ -34,7 +34,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         if(position==0) {
             AllTab tab1 = new AllTab();
             return tab1;
-
         }
         else if(position == 1) {
             GoingTab tab2 = new GoingTab();

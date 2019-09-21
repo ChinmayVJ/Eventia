@@ -105,7 +105,7 @@
                         android:textSize="17sp"/>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/group_name_text"
+                        android:id="@+id/group_name_textLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/start_marker_text"
@@ -116,6 +116,7 @@
                         android:layout_marginTop="20dp">
 
                         <EditText
+                            android:id="@+id/group_name_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Group Name" />
@@ -124,10 +125,10 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/event_name_text"
+                        android:id="@+id/event_name_textLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/group_name_text"
+                        app:layout_constraintTop_toBottomOf="@id/group_name_textLayout"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_marginLeft="15dp"
@@ -135,6 +136,7 @@
                         android:layout_marginTop="10dp">
 
                         <EditText
+                            android:id="@+id/event_name_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Event Name" />
@@ -143,10 +145,10 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/description_text"
+                        android:id="@+id/description_textLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/event_name_text"
+                        app:layout_constraintTop_toBottomOf="@id/event_name_textLayout"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_marginLeft="15dp"
@@ -154,6 +156,7 @@
                         android:layout_marginTop="10dp">
 
                         <EditText
+                            android:id="@+id/description_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Description" />
@@ -199,17 +202,16 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/date_time_text"
                         app:layout_constraintStart_toStartOf="@id/date_time_text"
-                        android:src="@drawable/location_icon"
+                        android:src="@drawable/calendar_icon"
                         android:layout_marginTop="15dp"/>
 
-                    <EditText
+                    <TextView
                         android:id="@+id/date_info"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:hint="Date"
                         android:textSize="17sp"
                         android:textColor="#2C2B2B"
-                        android:inputType="date"
                         app:layout_constraintLeft_toRightOf="@id/calender_icon"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="@id/calender_icon"
@@ -222,17 +224,16 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/calender_icon"
                         app:layout_constraintStart_toStartOf="@id/calender_icon"
-                        android:src="@drawable/location_icon"
+                        android:src="@drawable/time_icon"
                         android:layout_marginTop="25dp"/>
 
-                    <EditText
+                    <TextView
                         android:id="@+id/time_info"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:hint="Time"
                         android:textSize="17sp"
                         android:textColor="#2C2B2B"
-                        android:inputType="time"
                         app:layout_constraintLeft_toRightOf="@id/time_icon"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="@id/time_icon"
@@ -250,7 +251,7 @@
                         app:layout_constraintLeft_toRightOf="@id/time_icon"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/time_info"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="7dp"
                         android:layout_marginRight="25dp"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -337,7 +338,7 @@
                         android:textColor="#000000"/>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/interests_edit_text"
+                        android:id="@+id/interests_edit_textLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/interests_text"
@@ -347,6 +348,7 @@
                         android:layout_marginRight="15dp">
 
                         <EditText
+                            android:id="@+id/interests_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Interests" />
@@ -383,7 +385,8 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginBottom="5dp"/>
+                        android:layout_marginBottom="5dp"
+                        android:onClick="afterCreateButtonPressed"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

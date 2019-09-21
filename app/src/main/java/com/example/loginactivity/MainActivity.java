@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         dialog = new ProgressDialog(this);
 
+        if (fAuth.getCurrentUser()!=null)
+        {
+            startActivity( new Intent( getApplicationContext(), HomePage.class ) );
+        }
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

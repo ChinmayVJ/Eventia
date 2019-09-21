@@ -6,21 +6,21 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class eventData {
+public class EventData {
     private String hostName;
     private String groupName;
     private String eventName;
     private String description;
-    private Date dateOfEvent;
-    private Time startTime;
+    private String dateOfEvent;
+    private String startTime;
     private int duration;
     private String address;
     private ArrayList<String> interests;
     private int noOfMembers;
 
-    public eventData(){}
+    public EventData(){}
 
-    public eventData(String hostName, String groupName, String eventName, String description, Date dateOfEvent, Time startTime, int duration, String address, ArrayList<String> interests, int noOfMembers) {
+    public EventData(String hostName, String groupName, String eventName, String description, String dateOfEvent, String startTime, int duration, String address, ArrayList<String> interests) {
         this.hostName = hostName;
         this.groupName = groupName;
         this.eventName = eventName;
@@ -30,7 +30,7 @@ public class eventData {
         this.duration = duration;
         this.address = address;
         this.interests = interests;
-        this.noOfMembers = noOfMembers;
+        this.noOfMembers = 0;
     }
 
     public String getGroupName() {
@@ -89,19 +89,19 @@ public class eventData {
         this.noOfMembers = noOfMembers;
     }
 
-    public Date getDateOfEvent() {
+    public String getDateOfEvent() {
         return dateOfEvent;
     }
 
-    public void setDateOfEvent(Date dateOfEvent) {
+    public void setDateOfEvent(String dateOfEvent) {
         this.dateOfEvent = dateOfEvent;
     }
 
-    public Time getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
