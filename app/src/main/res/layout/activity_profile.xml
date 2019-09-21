@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_layout_profile_info" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
+
+        <ImageView
+            android:id="@+id/profile_pic_card"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/company_pic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="Name Surname"
+            android:textColor="#000000"
+            android:textSize="22sp"
+            app:layout_constraintStart_toEndOf="@+id/profile_pic_card"
+            app:layout_constraintTop_toTopOf="@+id/profile_pic_card" />
+
+        <TextView
+            android:id="@+id/text_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_name" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="4dp"
+            android:background="#ffffff"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="EDIT PROFILE"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="@+id/text_city"
+            app:layout_constraintTop_toBottomOf="@+id/text_city" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="@+id/profile_pic_card"
+            app:layout_constraintTop_toBottomOf="@+id/profile_pic_card">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/text_member_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Member"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_member_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not a member of any groupy yet "
+                android:layout_marginTop="10dp"
+
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/text_member_heading"
+                app:layout_constraintTop_toBottomOf="@+id/text_member_heading"/>
+
+                <TextView
+                    android:id="@+id/text_interest_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Interests"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="@+id/text_member_heading"
+                    app:layout_constraintTop_toBottomOf="@id/text_member_description" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

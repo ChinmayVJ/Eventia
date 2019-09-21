@@ -53,7 +53,7 @@ public class FragmentHome extends Fragment {
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), EventInfo.class));
+                startActivity(new Intent(getActivity(), Profile.class));
 
             }
         });
