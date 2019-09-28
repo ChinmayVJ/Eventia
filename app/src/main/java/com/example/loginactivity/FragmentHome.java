@@ -32,12 +32,6 @@ public class FragmentHome extends Fragment {
     FloatingActionButton addEventButton;
     ImageView profileImage;
 
-    FirebaseAuth fAuth;
-    FirebaseDatabase fData;
-    DatabaseReference fDatabase;
-
-    RecyclerView dataRecyclerView;
-
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -51,18 +45,17 @@ public class FragmentHome extends Fragment {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getActivity().getSupportFragmentManager());
         final ViewPager viewPager = getActivity().findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs =getView().findViewById(R.id.tabs);
+        TabLayout tabs = getView().findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
         addEventButton = getActivity().findViewById(R.id.fab_event_adder);
         profileImage = getActivity().findViewById(R.id.profile_icon);
 
-        fAuth = FirebaseAuth.getInstance();
-
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), CreateEvent.class));
+                getActivity().finish();
             }
         });
 
@@ -70,7 +63,7 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), Profile.class));
-
+                getActivity().finish();
             }
         });
 

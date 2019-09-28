@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.loginactivity.R;
 
-public class DataViewHolder extends RecyclerView.ViewHolder{
+public class DataViewHolderHome extends RecyclerView.ViewHolder{
 
     View dataView;
 
-    public DataViewHolder(@NonNull View itemView) {
+    public DataViewHolderHome(@NonNull View itemView) {
         super(itemView);
         dataView = itemView;
     }

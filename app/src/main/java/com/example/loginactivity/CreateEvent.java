@@ -1,5 +1,6 @@
 package com.example.loginactivity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -7,21 +8,30 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.loginactivity.Classes.EventData;
+import com.example.loginactivity.Classes.UserData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CreateEvent extends AppCompatActivity {
@@ -33,7 +43,7 @@ public class CreateEvent extends AppCompatActivity {
     TextView timePickerText;
     EditText duration;
     EditText eventLocationBldg;
-    EditText interests;
+    Spinner categorySpinner;
     ImageButton backButton;
     ImageView companyPic;
     Button createEvent;
@@ -41,8 +51,12 @@ public class CreateEvent extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener dateSetListener;
     TimePickerDialog.OnTimeSetListener timeSetListener;
 
-    FirebaseDatabase fData;
+    FirebaseAuth fAuth;
+    FirebaseUser fUser;
     DatabaseReference fDatabase;
+
+    String hostName;
+    String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +66,7 @@ public class CreateEvent extends AppCompatActivity {
         groupName = findViewById(R.id.group_name_text);
         eventName = findViewById(R.id.event_name_text);
         description = findViewById(R.id.description_text);
-        interests = findViewById(R.id.interests_edit_text);
+        categorySpinner = findViewById(R.id.category_spinner);
 
         duration = findViewById(R.id.duration_info);
         eventLocationBldg = findViewById(R.id.event_location_bldg);
@@ -63,10 +77,68 @@ public class CreateEvent extends AppCompatActivity {
         companyPic = findViewById(R.id.company_pic);
         createEvent = findViewById(R.id.create_event_button);
 
-
-        fData = FirebaseDatabase.getInstance();
-        fDatabase = fData.getReference().child("Event Information");
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
+        fDatabase = FirebaseDatabase.getInstance().getReference();
         fDatabase.keepSynced(true);
+
+        String[] categories = new String[]{"- Select -", "Outdoors", "Technology", "Health & Wellness", "Sports", "Learning", "Food & Drink", "Language & Culture", "Music", "Film", "Book Clubs", "Dance", "Fashion", "Social", "Career & Business"};
+        ArrayAdapter<String> cat_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
+        categorySpinner.setAdapter(cat_adapter);
+
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 1:
+                        category = "Outdoors";
+                        break;
+                    case 2:
+                        category = "Technology";
+                        break;
+                    case 3:
+                        category = "Health & Wellness";
+                        break;
+                    case 4:
+                        category = "Sports";
+                        break;
+                    case 5:
+                        category = "Learning";
+                        break;
+                    case 6:
+                        category = "Food & Drink";
+                        break;
+                    case 7:
+                        category = "Language & Culture";
+                        break;
+                    case 8:
+                        category = "Music";
+                        break;
+                    case 9:
+                        category = "Film";
+                        break;
+                    case 10:
+                        category = "Book Clubs";
+                        break;
+                    case 11:
+                        category = "Dance";
+                        break;
+                    case 12:
+                        category = "Fashion";
+                        break;
+                    case 13:
+                        category = "Social";
+                        break;
+                    case 14:
+                        category = "Career & Business";
+                        break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                category = "Social";
+            }
+        });
 
         datePickerText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,13 +153,16 @@ public class CreateEvent extends AppCompatActivity {
                         dateSetListener,
                         year, month, day);
 
+                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
                 dialog.show();
             }
         });
+
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                String date = String.format("%02d",day) + "/" + String.format("%02d",month) + "/" + year;
+                String date = String.format("%02d",day) + "/" + String.format("%02d",month+1) + "/" + year;
                 datePickerText.setText(date);
             }
         };
@@ -126,10 +201,22 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
 
+        fDatabase.child("User Information").child(fUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserData userData = dataSnapshot.getValue(UserData.class);
+                hostName = userData.getName();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void afterCreateButtonPressed(View view){
-        String host_name = "CJ";
+
         String group_name = groupName.getText().toString().trim();
         String event_name = eventName.getText().toString().trim();
         String descrip = description.getText().toString().trim();
@@ -137,13 +224,14 @@ public class CreateEvent extends AppCompatActivity {
         String timeOfEvent = timePickerText.getText().toString().trim();
         int duratn = Integer.parseInt(duration.getText().toString().trim());
         String address = eventLocationBldg.getText().toString().trim();
-        ArrayList<String> interests_array = new ArrayList<>();
-        interests_array.add(interests.getText().toString().trim());
 
-        EventData evData = new EventData(host_name, group_name, event_name, descrip, dateOfEvent, timeOfEvent, duratn, address, interests_array);
+        EventData evData = new EventData(hostName, group_name, event_name, descrip, dateOfEvent, timeOfEvent, duratn, address, category);
 
-        String id = fDatabase.push().getKey();
-        fDatabase.child(id).setValue(evData);
+        String id = fDatabase.child("Event Information").push().getKey();
+        fDatabase.child("Event Information").child(id).setValue(evData);
         Toast.makeText(this, "Data Inserted", Toast.LENGTH_SHORT).show();
+
+        startActivity(new Intent(this, HomePage.class));
+        finish();
     }
 }

@@ -86,12 +86,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="50dp"
             android:text="0"
             android:textColor="#000000"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/text_name_profile"
+            app:layout_constraintEnd_toStartOf="@+id/button_edit_profile"
             app:layout_constraintTop_toBottomOf="@id/button_edit_profile" />
 
         <TextView
@@ -110,13 +110,13 @@
             android:id="@+id/interest_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
             android:text="0"
             android:textColor="#000000"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/text_name_profile"
+            app:layout_constraintStart_toEndOf="@+id/button_edit_profile"
             app:layout_constraintTop_toBottomOf="@id/button_edit_profile" />
 
         <TextView
@@ -133,7 +133,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:layout_marginTop="15dp"
             android:elevation="5dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +141,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/text_interest"
@@ -159,7 +159,7 @@
 
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_interest"
                     app:layout_constraintBottom_toBottomOf="parent" >
@@ -167,7 +167,7 @@
                     <ListView
                         android:id="@+id/interests_list_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
                     </ListView>
 

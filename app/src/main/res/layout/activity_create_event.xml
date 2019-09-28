@@ -334,27 +334,20 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_marginLeft="15dp"
                         android:textSize="17sp"
-                        android:text="Interests"
+                        android:text="Category"
                         android:textColor="#000000"/>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/interests_edit_textLayout"
-                        android:layout_width="0dp"
+                    <Spinner
+                        android:id="@+id/category_spinner"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/interests_text"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp">
 
-                        <EditText
-                            android:id="@+id/interests_edit_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Interests" />
-
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                    </Spinner>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

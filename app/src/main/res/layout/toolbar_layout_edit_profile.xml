@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:id="@+id/toolbar_back_button_profile"
+            android:id="@+id/toolbar_back_button_edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
@@ -24,22 +24,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile"
-            android:layout_toRightOf="@id/toolbar_back_button_profile"
+            android:text=" Edit Profile"
+            android:layout_toRightOf="@id/toolbar_back_button_edit_profile"
             android:layout_marginTop="5dp"
             android:textSize="22sp"
             android:textColor="#FFFFFF"/>
-
-        <ImageButton
-            android:id="@+id/toolbar_logout_button_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/logout"
-            android:background="@color/colorPrimary"/>
 
     </RelativeLayout>
 

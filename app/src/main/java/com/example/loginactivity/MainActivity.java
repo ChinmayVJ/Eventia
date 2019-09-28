@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (fAuth.getCurrentUser()!=null)
         {
-            startActivity( new Intent( getApplicationContext(), HomePage.class ) );
+            startActivity( new Intent( getApplicationContext(), HomePage.class ));
+            finish();
         }
 
         loginButton.setOnClickListener(new View.OnClickListener() {

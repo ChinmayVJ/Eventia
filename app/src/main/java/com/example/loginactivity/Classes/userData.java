@@ -1,42 +1,49 @@
 package com.example.loginactivity.Classes;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
 
 public class UserData {
 
-    String Name;
-    String userAddress;
-    ArrayList<String> memberOfGroup;
-    ArrayList<String> hostedEvents;
-    ArrayList<String> userInterests;
+    private String name;
+    private String address;
+    private String gender;
+    private ArrayList<String> memberOfGroup;
+    private ArrayList<String> hostedEvents;
+    private ArrayList<String> userInterests;
 
     public UserData() {
     }
 
-    public UserData(String name, String userAddress, ArrayList<String> memberOfGroup, ArrayList<String> hostedEvents, ArrayList<String> userInterests) {
-        Name = name;
-        this.userAddress = userAddress;
-        this.memberOfGroup = memberOfGroup;
-        this.hostedEvents = hostedEvents;
-        this.userInterests = userInterests;
+    public UserData(String name) {
+        this.name = name;
+        this.address = "";
+        this.memberOfGroup = new ArrayList<>();
+        this.hostedEvents = new ArrayList<>();
+        this.userInterests = new ArrayList<>();
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public String getUserAddress() {
-        return userAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public ArrayList<String> getMemberOfGroup() {

@@ -1,55 +1,48 @@
 package com.example.loginactivity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toolbar;
 
 import com.example.loginactivity.Classes.DataViewHolderHome;
 import com.example.loginactivity.Classes.EventData;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-public class FragmentExplore extends Fragment {
+public class ExploreInterwise extends AppCompatActivity {
 
     FirebaseDatabase fData;
     DatabaseReference fDatabase;
     Query query;
 
     RecyclerView dataRecyclerView;
-    CardView exploreCard;
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_explore, container, false);
-    }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_explore_interestwise);
 
-//        exploreCard = getView().findViewById(R.id.rw_00);
+        Intent intent = getIntent();
+        String evType = intent.getStringExtra("evType");
 
         fData = FirebaseDatabase.getInstance();
         fDatabase = fData.getReference().child("Event Information");
         fDatabase.keepSynced(true);
 
-        query = fDatabase.orderByChild("category").equalTo("Film");
+        query = fDatabase.orderByChild("interests").equalTo(evType);
 
-        dataRecyclerView = getActivity().findViewById(R.id.social_events_recycler_view);
+        dataRecyclerView = findViewById(R.id.data_view_explore_interest);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager( getActivity(), LinearLayoutManager.HORIZONTAL, true );
+        LinearLayoutManager layoutManager = new LinearLayoutManager( getApplicationContext() );
 
         layoutManager.setReverseLayout( true );
         layoutManager.setStackFromEnd( true );
@@ -57,14 +50,6 @@ public class FragmentExplore extends Fragment {
         dataRecyclerView.setHasFixedSize( true );
         dataRecyclerView.setLayoutManager( layoutManager );
 
-//        dataRecyclerView.setVisibility(View.INVISIBLE);
-
-//        exploreCard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dataRecyclerView.setVisibility(View.VISIBLE);
-//            }
-//        });
     }
 
     @Override
@@ -95,7 +80,7 @@ public class FragmentExplore extends Fragment {
                     @Override
                     public void onClick(View view) {
                         String post_key = getRef( position ).getKey();
-                        startActivity(new Intent(getActivity(), EventInfo.class).putExtra("evId", post_key));
+                        startActivity(new Intent(getApplicationContext(), EventInfo.class).putExtra("evId", post_key));
                     }
                 });
             }
@@ -103,5 +88,4 @@ public class FragmentExplore extends Fragment {
 
         dataRecyclerView.setAdapter(fAdapter);
     }
-
 }

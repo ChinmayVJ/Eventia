@@ -34,7 +34,7 @@
 
             <!--Name of Organization-->
             <TextView
-                android:id="@+id/date_time"
+                android:id="@+id/event_group_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Alacrity India"
@@ -50,12 +50,12 @@
                 android:layout_height="wrap_content"
                 android:text="Public Group"
                 android:textSize="15sp"
-                app:layout_constraintTop_toBottomOf="@id/date_time"
-                app:layout_constraintStart_toStartOf="@id/date_time"/>
+                app:layout_constraintTop_toBottomOf="@id/event_group_name"
+                app:layout_constraintStart_toStartOf="@id/event_group_name"/>
 
             <!--Name of Event-->
             <TextView
-                android:id="@+id/event_name"
+                android:id="@+id/event_name_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Founders Meetup 3.0"
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/event_name"
+                app:layout_constraintTop_toBottomOf="@id/event_name_info"
                 android:layout_marginTop="10dp"
                 android:paddingBottom="15dp">
 
@@ -166,7 +166,7 @@
                         android:layout_marginTop="15dp"/>
 
                     <TextView
-                        android:id="@+id/date_text"
+                        android:id="@+id/event_host_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hosted by Tushar Shetty"

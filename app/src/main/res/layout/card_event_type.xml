@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginTop="3dp"
+    android:elevation="5dp">
 
     <LinearLayout
         android:orientation="vertical"
@@ -12,19 +13,18 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp">
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/theme_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Theme name"
                 android:textColor="#000000"
                 android:textSize="20sp" />
-            <ScrollView
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/event_details_temp">
-                <include
-                    layout="@layout/explore_event_card" />
-            </ScrollView>
+                android:id="@+id/event_details_explore">
+            </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
 

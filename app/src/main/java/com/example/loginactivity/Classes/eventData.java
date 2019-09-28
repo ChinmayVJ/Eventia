@@ -1,11 +1,5 @@
 package com.example.loginactivity.Classes;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Date;
-
 public class EventData {
     private String hostName;
     private String groupName;
@@ -15,12 +9,12 @@ public class EventData {
     private String startTime;
     private int duration;
     private String address;
-    private ArrayList<String> interests;
+    private String category;
     private int noOfMembers;
 
     public EventData(){}
 
-    public EventData(String hostName, String groupName, String eventName, String description, String dateOfEvent, String startTime, int duration, String address, ArrayList<String> interests) {
+    public EventData(String hostName, String groupName, String eventName, String description, String dateOfEvent, String startTime, int duration, String address, String category) {
         this.hostName = hostName;
         this.groupName = groupName;
         this.eventName = eventName;
@@ -29,8 +23,16 @@ public class EventData {
         this.startTime = startTime;
         this.duration = duration;
         this.address = address;
-        this.interests = interests;
+        this.category = category;
         this.noOfMembers = 0;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
     }
 
     public String getGroupName() {
@@ -57,14 +59,6 @@ public class EventData {
         this.description = description;
     }
 
-    public String getHostName() {
-        return hostName;
-    }
-
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -73,12 +67,12 @@ public class EventData {
         this.address = address;
     }
 
-    public ArrayList<String> getInterests() {
-        return interests;
+    public String getCategory() {
+        return category;
     }
 
-    public void setInterests(ArrayList<String> interests) {
-        this.interests = interests;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getNoOfMembers() {
