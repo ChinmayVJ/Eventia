@@ -8,4 +8,16 @@
         layout="@layout/toolbar_layout_explore"
         android:id="@+id/toolbar_explore" />
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/event_type_card" />
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

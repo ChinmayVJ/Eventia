@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,17 +43,15 @@ public class FragmentHome extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
         return root;
     }
-
     @Override
     public void onViewCreated (View view, Bundle savedInstanceState)
     {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getActivity().getSupportFragmentManager());
         final ViewPager viewPager = getActivity().findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = getView().findViewById(R.id.tabs);
+        TabLayout tabs =getView().findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
         addEventButton = getActivity().findViewById(R.id.fab_event_adder);
@@ -70,13 +69,11 @@ public class FragmentHome extends Fragment {
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Profile.class));
 
-                // sign out code here for now ************
-                fAuth.signOut();
-                startActivity(new Intent(getActivity(), MainActivity.class));
-                getActivity().finish();
             }
         });
+
 
     }
 

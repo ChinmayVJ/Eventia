@@ -22,7 +22,7 @@ public class DataViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setEventHandlerName(String eventHandlerName){
-        TextView event_handler_name = dataView.findViewById(R.id.event_handler_name);
+        TextView event_handler_name = dataView.findViewById(R.id.event_handlers_name);
         event_handler_name.setText(eventHandlerName);
     }
 

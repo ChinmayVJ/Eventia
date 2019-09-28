@@ -13,7 +13,7 @@
         android:paddingBottom="5dp">
 
         <TextView
-            android:id="@+id/event_handler_name"
+            android:id="@+id/event_handlers_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Alacrity India"
@@ -31,8 +31,8 @@
             android:text="Founders Meetup 3.0"
             android:textSize="@dimen/event_name"
             android:textColor="#000000"
-            app:layout_constraintTop_toBottomOf="@id/event_handler_name"
-            app:layout_constraintStart_toStartOf="@id/event_handler_name"
+            app:layout_constraintTop_toBottomOf="@id/event_handlers_name"
+            app:layout_constraintStart_toStartOf="@id/event_handlers_name"
             android:layout_marginTop="2dp"/>
 
         <TextView
