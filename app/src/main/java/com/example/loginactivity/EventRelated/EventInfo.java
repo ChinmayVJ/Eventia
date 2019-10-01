@@ -1,4 +1,4 @@
-package com.example.loginactivity;
+package com.example.loginactivity.EventRelated;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.loginactivity.Classes.EventData;
 import com.example.loginactivity.Classes.UserData;
+import com.example.loginactivity.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -147,7 +148,6 @@ public class EventInfo extends AppCompatActivity {
                     }
                 });
 
-                startActivity(new Intent(getApplicationContext(), HomePage.class));
                 finish();
             }
         });
@@ -155,7 +155,6 @@ public class EventInfo extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), HomePage.class));
                 finish();
             }
         });

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Meetup</string>
+    <string name="app_name">Eventia</string>
     <string name="new_user_sign_up_here">New User? Sign Up here</string>
     <string name="login">LOG IN</string>
     <string name="password">Password</string>
@@ -14,7 +14,6 @@
     <string name="tab_text_1">All</string>
     <string name="tab_text_2">Going</string>
     <string name="tab_text_3">Past</string>
-    <string name="title_activity_explore_maps">Map</string>
 
     <string-array name="Gender">
         <item>Male</item>

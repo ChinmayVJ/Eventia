@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,29 +8,14 @@
     app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <RelativeLayout
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:text="Explore"
+        android:textSize="22sp"
+        android:textColor="#FFFFFF"/>
 
-        <ImageButton
-            android:id="@+id/toolbar_search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/search"
-            android:background="@color/colorPrimary"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search"
-            android:layout_toRightOf="@id/toolbar_search_button"
-            android:layout_marginRight="50dp"
-            android:textSize="22sp"
-            android:textColor="#FFFFFF"/>
-
-    </RelativeLayout>
 
 </androidx.appcompat.widget.Toolbar>

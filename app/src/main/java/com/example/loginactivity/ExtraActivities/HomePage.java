@@ -1,28 +1,21 @@
-package com.example.loginactivity;
+package com.example.loginactivity.ExtraActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.loginactivity.Classes.UserData;
+import com.example.loginactivity.Fragments.FragmentExplore;
+import com.example.loginactivity.Fragments.FragmentHome;
+import com.example.loginactivity.Fragments.FragmentNotifications;
+import com.example.loginactivity.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class HomePage extends AppCompatActivity {
-
-    FirebaseAuth fAuth;
-    DatabaseReference fDatabase;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -34,7 +27,7 @@ public class HomePage extends AppCompatActivity {
                 case R.id.navigation_home:
                     selectedFragment = new FragmentHome();
                     break;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_explore:
                     selectedFragment = new FragmentExplore();
                     break;
                 case R.id.navigation_notifications:
@@ -54,7 +47,16 @@ public class HomePage extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
-    }
+        Intent intent = getIntent();
+        int selectFragment = intent.getIntExtra("fragment", 0);
 
+        switch (selectFragment){
+            case 0:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
+                break;
+            case 1:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentExplore()).commit();
+                break;
+        }
+    }
 }

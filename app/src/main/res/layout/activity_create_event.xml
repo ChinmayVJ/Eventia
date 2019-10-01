@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateEvent">
+    tools:context=".EventRelated.CreateEvent">
 
     <include
         layout="@layout/toolbar_layout_create_event"
@@ -117,9 +117,10 @@
 
                         <EditText
                             android:id="@+id/group_name_text"
+                            android:maxLines="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Group Name" />
+                            android:hint="Organizer" />
 
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -137,6 +138,7 @@
 
                         <EditText
                             android:id="@+id/event_name_text"
+                            android:maxLines="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Event Name" />
@@ -225,7 +227,7 @@
                         app:layout_constraintTop_toBottomOf="@id/calender_icon"
                         app:layout_constraintStart_toStartOf="@id/calender_icon"
                         android:src="@drawable/time_icon"
-                        android:layout_marginTop="25dp"/>
+                        android:layout_marginTop="15dp"/>
 
                     <TextView
                         android:id="@+id/time_info"

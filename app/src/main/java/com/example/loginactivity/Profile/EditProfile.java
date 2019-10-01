@@ -1,4 +1,4 @@
-package com.example.loginactivity;
+package com.example.loginactivity.Profile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.loginactivity.Classes.UserData;
+import com.example.loginactivity.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -91,7 +92,6 @@ public class EditProfile extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Profile.class));
                 finish();
             }
         });
@@ -121,12 +121,11 @@ public class EditProfile extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         genderSpinner.setAdapter(adapter);
 
-        String[] suggestions = new String[]{"Technology", "Tours", "Travel", "Nature", "Adventures", "Startups","Outdoors"};
+        String[] suggestions = new String[]{"Technology", "Tours", "Travel", "Nature", "Adventures", "Start Ups","Outdoors"};
         ArrayAdapter<String> suggestionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, suggestions);
         nachoTextView.setAdapter(suggestionAdapter);
         nachoTextView.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_TO_TERMINATOR);
         nachoTextView.enableEditChipOnTouch(true, true);
-
     }
 
     public void afterEditProfileButtonPressed(View view){
@@ -165,7 +164,6 @@ public class EditProfile extends AppCompatActivity {
         });
 
         Toast.makeText(this, "Data Updated", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getApplicationContext(), Profile.class));
         finish();
 
     }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EventInfo">
+    tools:context=".EventRelated.EventInfo">
 
     <include layout="@layout/toolbar_layout_event_info"
         android:id="@+id/toolbar_event_info"/>
@@ -176,8 +176,6 @@
                         app:layout_constraintTop_toTopOf="@id/host_icon"
                         android:layout_marginLeft="10dp"/>
 
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -205,8 +203,6 @@
                         app:layout_constraintLeft_toRightOf="@id/no_of_mems_image"
                         app:layout_constraintTop_toTopOf="@id/no_of_mems_image"
                         android:layout_marginLeft="10dp"/>
-
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -240,7 +236,7 @@ Registration Link: https://lnkd.in/fB786-M\n
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_shape"
-                android:text="Join this group"
+                android:text="Join and RSVP"
                 android:textColor="#FFFFFF"
                 app:layout_constraintTop_toBottomOf="@id/description_data"
                 app:layout_constraintLeft_toLeftOf="parent"

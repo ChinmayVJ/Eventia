@@ -1,4 +1,4 @@
-package com.example.loginactivity.home_tab;
+package com.example.loginactivity.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import com.example.loginactivity.Classes.DataViewHolderHome;
 import com.example.loginactivity.Classes.EventAdapterDataHolder;
 import com.example.loginactivity.Classes.EventData;
 import com.example.loginactivity.Classes.UserData;
-import com.example.loginactivity.EventInfo;
+import com.example.loginactivity.EventRelated.EventInfo;
 import com.example.loginactivity.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class GoingTab extends Fragment{
+public class FragmentNotifications extends Fragment {
 
     FirebaseAuth fAuth;
     FirebaseDatabase fData;
@@ -42,24 +42,18 @@ public class GoingTab extends Fragment{
     ArrayList<EventData> eventDataArrayList;
     ArrayList<String> eventIds;
 
+    @Nullable
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.tab_going_events, container, false);
-        return root;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
 
         fAuth = FirebaseAuth.getInstance();
         fData = FirebaseDatabase.getInstance();
         fDatabase = fData.getReference();
         fDatabase.keepSynced(true);
+        Log.e("working", "going tab working in onViewCreated");
 
-        dataRecyclerView = getView().findViewById(R.id.data_view_going_tab);
+        dataRecyclerView = root.findViewById(R.id.data_view_notification_fragment);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager( getContext() );
         layoutManager.setReverseLayout( true );
@@ -67,35 +61,17 @@ public class GoingTab extends Fragment{
         dataRecyclerView.setHasFixedSize( true );
         dataRecyclerView.setLayoutManager( layoutManager );
 
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (isVisibleToUser) {
-            Log.d("Going Tab ", "Fragment is visible.");
-            activateOnGoingTabSelect();
-        }
-        else
-            Log.d("Going Tab ", "Fragment is not visible.");
-    }
-
-    private void activateOnGoingTabSelect(){
-
-        eventIds = new ArrayList<>();
         eventDataArrayList = new ArrayList<>();
-
+        eventIds = new ArrayList<>();
         fDatabase.child("User Information").child(fAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserData userData = dataSnapshot.getValue(UserData.class);
                 try {
-                    eventIds = userData.getMemberOfGroup();
+                    eventIds = new ArrayList<>(userData.getMemberOfGroup());
                 }
                 catch (Exception e) {
                 }
-
                 fDatabase.child("User Information").child(fAuth.getCurrentUser().getUid()).removeEventListener(this);
             }
 
@@ -111,32 +87,31 @@ public class GoingTab extends Fragment{
                 if (eventIds.size() != 0) {
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         String tempId = child.getKey();
-//                        Log.d("tempId", tempId);
                         if (eventIds.contains(tempId)) {
                             EventData eventData = child.getValue(EventData.class);
-//                            Log.d("tempData", eventData.getEventName());
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                             Date strDate = new Date();
                             try {
                                 strDate = sdf.parse(eventData.getDateOfEvent());
+                                Log.e("strDate", strDate.toString());
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            if (new Date().after(strDate)) {
+                            Date todayDate = new Date();
+                            Log.e("currentDate", todayDate.toString());
+                            if (todayDate.getDate() == strDate.getDate()
+                            && todayDate.getMonth() == strDate.getMonth()
+                            && todayDate.getYear() == strDate.getYear()) {
 //                                your_date_is_outdated = true;
-                            }
-                            else{
-//                                your_date_is_outdated = false;
                                 eventDataArrayList.add(eventData);
                             }
                         }
                     }
                 }
 
-                EventAdapterDataHolder eventAdapterDataHolder = new EventAdapterDataHolder(getContext(), eventDataArrayList);
+                EventAdapterDataHolder eventAdapterDataHolder = new EventAdapterDataHolder(getContext(), eventDataArrayList, dataRecyclerView);
                 dataRecyclerView.setAdapter(eventAdapterDataHolder);
 
-                Log.d("eventDataArrayList 1 ", String.valueOf(eventDataArrayList));
                 fDatabase.child("Event Information").removeEventListener(this);
             }
 
@@ -146,6 +121,6 @@ public class GoingTab extends Fragment{
             }
         });
 
+        return root;
     }
-
 }

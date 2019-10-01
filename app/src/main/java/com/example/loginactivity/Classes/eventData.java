@@ -1,20 +1,22 @@
 package com.example.loginactivity.Classes;
 
 public class EventData {
+    private String evId;
     private String hostName;
     private String groupName;
     private String eventName;
     private String description;
     private String dateOfEvent;
     private String startTime;
-    private int duration;
+    private double duration;
     private String address;
     private String category;
     private int noOfMembers;
 
     public EventData(){}
 
-    public EventData(String hostName, String groupName, String eventName, String description, String dateOfEvent, String startTime, int duration, String address, String category) {
+    public EventData(String evId, String hostName, String groupName, String eventName, String description, String dateOfEvent, String startTime, double duration, String address, String category) {
+        this.evId = evId;
         this.hostName = hostName;
         this.groupName = groupName;
         this.eventName = eventName;
@@ -25,6 +27,14 @@ public class EventData {
         this.address = address;
         this.category = category;
         this.noOfMembers = 0;
+    }
+
+    public String getEvId() {
+        return evId;
+    }
+
+    public void setEvId(String evId) {
+        this.evId = evId;
     }
 
     public String getHostName() {
@@ -99,11 +109,11 @@ public class EventData {
         this.startTime = startTime;
     }
 
-    public int getDuration() {
+    public double getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(double duration) {
         this.duration = duration;
     }
 }

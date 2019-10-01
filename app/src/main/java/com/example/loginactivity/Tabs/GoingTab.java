@@ -1,4 +1,4 @@
-package com.example.loginactivity.home_tab;
+package com.example.loginactivity.Tabs;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.loginactivity.Classes.EventAdapterDataHolder;
 import com.example.loginactivity.Classes.EventData;
@@ -28,33 +28,34 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PastTab extends Fragment{
+public class GoingTab extends Fragment{
 
     FirebaseAuth fAuth;
     FirebaseDatabase fData;
     DatabaseReference fDatabase;
 
     RecyclerView dataRecyclerView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     ArrayList<EventData> eventDataArrayList;
     ArrayList<String> eventIds;
 
     @Override
     public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.tab_past_events, container, false);
-        return root;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+            @NonNull LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.tab_going_events, container, false);
 
         fAuth = FirebaseAuth.getInstance();
         fData = FirebaseDatabase.getInstance();
         fDatabase = fData.getReference();
         fDatabase.keepSynced(true);
+        Log.e("working", "going tab working in onViewCreated");
 
-        dataRecyclerView = getView().findViewById(R.id.data_view_past_tab);
+        dataRecyclerView = root.findViewById(R.id.data_view_going_tab);
+        mSwipeRefreshLayout = root.findViewById(R.id.swipeToRefresh_going);
+
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager( getContext() );
         layoutManager.setReverseLayout( true );
@@ -62,31 +63,29 @@ public class PastTab extends Fragment{
         dataRecyclerView.setHasFixedSize( true );
         dataRecyclerView.setLayoutManager( layoutManager );
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        refresh();
+
+        return root;
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (isVisibleToUser) {
-            Log.d("Past Tab ", "Fragment is visible.");
-            activateOnGoingTabSelect();
-        }
-        else
-            Log.d("Past Tab ", "Fragment is not visible.");
-    }
-
-    private void activateOnGoingTabSelect(){
-
-        eventIds = new ArrayList<>();
+    public void refresh(){
         eventDataArrayList = new ArrayList<>();
+        eventIds = new ArrayList<>();
 
         fDatabase.child("User Information").child(fAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserData userData = dataSnapshot.getValue(UserData.class);
                 try {
-                    eventIds = userData.getMemberOfGroup();
+                    eventIds = new ArrayList<>(userData.getMemberOfGroup());
                 }
                 catch (Exception e) {
                 }
@@ -116,15 +115,20 @@ public class PastTab extends Fragment{
                                 e.printStackTrace();
                             }
                             if (new Date().after(strDate)) {
+//                                your_date_is_outdated = true;
+                            }
+                            else{
+//                                your_date_is_outdated = false;
                                 eventDataArrayList.add(eventData);
                             }
                         }
                     }
                 }
 
-                EventAdapterDataHolder eventAdapterDataHolder = new EventAdapterDataHolder(getContext(), eventDataArrayList);
+                EventAdapterDataHolder eventAdapterDataHolder = new EventAdapterDataHolder(getContext(), eventDataArrayList, dataRecyclerView);
                 dataRecyclerView.setAdapter(eventAdapterDataHolder);
 
+                Log.d("eventDataArrayList 1 ", String.valueOf(eventDataArrayList));
                 fDatabase.child("Event Information").removeEventListener(this);
             }
 

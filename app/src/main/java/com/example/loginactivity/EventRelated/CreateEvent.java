@@ -1,4 +1,4 @@
-package com.example.loginactivity;
+package com.example.loginactivity.EventRelated;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +8,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,6 +23,8 @@ import android.widget.Toast;
 
 import com.example.loginactivity.Classes.EventData;
 import com.example.loginactivity.Classes.UserData;
+import com.example.loginactivity.ExtraActivities.HomePage;
+import com.example.loginactivity.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -82,7 +83,7 @@ public class CreateEvent extends AppCompatActivity {
         fDatabase = FirebaseDatabase.getInstance().getReference();
         fDatabase.keepSynced(true);
 
-        String[] categories = new String[]{"- Select -", "Outdoors", "Technology", "Health & Wellness", "Sports", "Learning", "Food & Drink", "Language & Culture", "Music", "Film", "Book Clubs", "Dance", "Fashion", "Social", "Career & Business"};
+        String[] categories = new String[]{"- Select -", "Outdoors & Adventure", "Technology", "Health & Wellness", "Sports & Fitness", "Learning", "Food & Drink", "Language & Culture", "Music", "Film", "Book Clubs", "Dance", "Fashion", "Social", "Career & Business"};
         ArrayAdapter<String> cat_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
         categorySpinner.setAdapter(cat_adapter);
 
@@ -91,7 +92,7 @@ public class CreateEvent extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 1:
-                        category = "Outdoors";
+                        category = "Outdoors & Adventure";
                         break;
                     case 2:
                         category = "Technology";
@@ -100,7 +101,7 @@ public class CreateEvent extends AppCompatActivity {
                         category = "Health & Wellness";
                         break;
                     case 4:
-                        category = "Sports";
+                        category = "Sports & Fitness";
                         break;
                     case 5:
                         category = "Learning";
@@ -222,16 +223,15 @@ public class CreateEvent extends AppCompatActivity {
         String descrip = description.getText().toString().trim();
         String dateOfEvent = datePickerText.getText().toString().trim();
         String timeOfEvent = timePickerText.getText().toString().trim();
-        int duratn = Integer.parseInt(duration.getText().toString().trim());
+        double duratn = Double.parseDouble(duration.getText().toString().trim());
         String address = eventLocationBldg.getText().toString().trim();
 
-        EventData evData = new EventData(hostName, group_name, event_name, descrip, dateOfEvent, timeOfEvent, duratn, address, category);
-
         String id = fDatabase.child("Event Information").push().getKey();
+        EventData evData = new EventData(id, hostName, group_name, event_name, descrip, dateOfEvent, timeOfEvent, duratn, address, category);
+
         fDatabase.child("Event Information").child(id).setValue(evData);
         Toast.makeText(this, "Data Inserted", Toast.LENGTH_SHORT).show();
 
-        startActivity(new Intent(this, HomePage.class));
         finish();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.loginactivity;
+package com.example.loginactivity.Authentication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.loginactivity.ExtraActivities.HomePage;
+import com.example.loginactivity.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (fAuth.getCurrentUser()!=null)
         {
-            startActivity( new Intent( getApplicationContext(), HomePage.class ));
+            startActivity( new Intent( getApplicationContext(), HomePage.class ).putExtra("fragment", 0));
             finish();
         }
 
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                         }
                         else {
+                            dialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
                         }
                     }
