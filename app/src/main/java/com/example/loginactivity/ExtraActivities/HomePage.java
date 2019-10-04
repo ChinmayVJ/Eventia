@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.loginactivity.Fragments.FragmentExplore;
 import com.example.loginactivity.Fragments.FragmentHome;
-import com.example.loginactivity.Fragments.FragmentNotifications;
+import com.example.loginactivity.Fragments.FragmentCalendar;
 import com.example.loginactivity.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -30,8 +30,8 @@ public class HomePage extends AppCompatActivity {
                 case R.id.navigation_explore:
                     selectedFragment = new FragmentExplore();
                     break;
-                case R.id.navigation_notifications:
-                    selectedFragment = new FragmentNotifications();
+                case R.id.navigation_calendar:
+                    selectedFragment = new FragmentCalendar();
                     break;
             }
 

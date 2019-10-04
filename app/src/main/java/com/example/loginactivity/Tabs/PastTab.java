@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.loginactivity.Classes.EventAdapterDataHolder;
 import com.example.loginactivity.Classes.EventData;
@@ -34,6 +35,8 @@ public class PastTab extends Fragment{
     DatabaseReference fDatabase;
 
     RecyclerView dataRecyclerView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     ArrayList<EventData> eventDataArrayList;
     ArrayList<String> eventIds;
 
@@ -46,9 +49,11 @@ public class PastTab extends Fragment{
         fData = FirebaseDatabase.getInstance();
         fDatabase = fData.getReference();
         fDatabase.keepSynced(true);
-        Log.e("working", "past tab working in onViewCreated");
 
         dataRecyclerView = root.findViewById(R.id.data_view_past_tab);
+        mSwipeRefreshLayout = root.findViewById(R.id.swipeToRefresh_past);
+
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager( getContext() );
         layoutManager.setReverseLayout( true );
@@ -56,6 +61,20 @@ public class PastTab extends Fragment{
         dataRecyclerView.setHasFixedSize( true );
         dataRecyclerView.setLayoutManager( layoutManager );
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        refresh();
+
+        return root;
+    }
+
+    private void refresh(){
 
         eventDataArrayList = new ArrayList<>();
         eventIds = new ArrayList<>();
@@ -112,7 +131,6 @@ public class PastTab extends Fragment{
             }
         });
 
-        return root;
     }
 
 }

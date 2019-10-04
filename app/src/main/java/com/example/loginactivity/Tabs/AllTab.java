@@ -44,7 +44,6 @@ public class AllTab extends Fragment {
         fData = FirebaseDatabase.getInstance();
         fDatabase = fData.getReference();
         fDatabase.keepSynced(true);
-        Log.e("working", "going tab working in onViewCreated");
 
         dataRecyclerView = root.findViewById(R.id.data_view_all_tab);
         mSwipeRefreshLayout = root.findViewById(R.id.swipeToRefresh_all);
@@ -72,7 +71,7 @@ public class AllTab extends Fragment {
         return root;
     }
 
-    public void refresh(){
+    private void refresh(){
 
         eventDataArrayList = new ArrayList<>();
         fDatabase.child("Event Information").addValueEventListener(new ValueEventListener() {
@@ -84,7 +83,6 @@ public class AllTab extends Fragment {
                     Date strDate = new Date();
                     try {
                         strDate = sdf.parse(eventData.getDateOfEvent());
-                        Log.e("strddate", strDate.toString());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -107,5 +105,6 @@ public class AllTab extends Fragment {
 
             }
         });
+
     }
 }

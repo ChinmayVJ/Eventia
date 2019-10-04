@@ -21,6 +21,42 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp">
 
+           <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_event_adder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/edit_icon" /> -->
+
+            <RelativeLayout
+                android:id="@+id/edit_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="@dimen/fab_margin">
+
+                <ImageView
+                    android:id="@+id/edit_event_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/pencil"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edit_event_icon"
+                    android:layout_marginTop="3dp"
+                    android:text="Edit"
+                    android:textSize="17sp"
+                    android:textColor="#000"/>
+
+            </RelativeLayout>
+
             <!--Image of Event Handler's Organization-->
             <ImageView
                 android:id="@+id/company_pic"
@@ -128,7 +164,7 @@
                         android:layout_marginTop="15dp"/>
 
                     <TextView
-                        android:id="@+id/event_location_bldg"
+                        android:id="@+id/event_location_new_event"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Alacrity India Innovation Centre"
@@ -144,8 +180,8 @@
                         android:layout_height="wrap_content"
                         android:text="Pune, India"
                         android:textSize="15sp"
-                        app:layout_constraintStart_toStartOf="@id/event_location_bldg"
-                        app:layout_constraintTop_toBottomOf="@id/event_location_bldg"/>
+                        app:layout_constraintStart_toStartOf="@id/event_location_new_event"
+                        app:layout_constraintTop_toBottomOf="@id/event_location_new_event"/>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -219,14 +255,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingBottom="10dp"
-                android:text="Glad to welcome our power-packed speakers Christian Hujer Ashwinee Singh, SPC4®,CSPO® Rohan B. along with a refreshing cup of #coffee for a stimulating conversation around Agile transformation, challenges, agony and ecstasy of any change.\n
-Join to hear to some of the #Best Thought Leaders and participants from #Pune on their thoughts and wisdom on #Agile, #DevOps, #DesignThinking, #LEAN and
-#Kanban #transformation\n\n
-Date: 15-September-2019 (Sunday)\n
-Location: Alacrity India Innovation Center, Pune\n
-Time : 9:30 AM To 12:30 PM\n
-Registration Link: https://lnkd.in/fB786-M\n
-\nRush in early and confirm your seats as they are very limited and are filling up fast"
+                android:text="Glad to welcome our power-packed "
                 android:textSize="20sp"
                 android:textColor="#202020"/>
 
@@ -239,9 +268,19 @@ Registration Link: https://lnkd.in/fB786-M\n
                 android:text="Join and RSVP"
                 android:textColor="#FFFFFF"
                 app:layout_constraintTop_toBottomOf="@id/description_data"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/cancel_participation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't want to go ?"
+                app:layout_constraintTop_toBottomOf="@id/join_group_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

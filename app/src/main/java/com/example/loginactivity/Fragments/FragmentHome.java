@@ -42,14 +42,13 @@ public class FragmentHome extends Fragment {
         tabs = root.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        Log.e("working", "fragment home working");
         addEventButton = root.findViewById(R.id.fab_event_adder);
         profileImage = root.findViewById(R.id.profile_icon);
 
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), CreateEvent.class));
+                startActivity(new Intent(getActivity(), CreateEvent.class).putExtra("status", "new"));
             }
         });
 

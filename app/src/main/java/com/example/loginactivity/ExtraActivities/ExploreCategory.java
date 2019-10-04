@@ -1,5 +1,6 @@
 package com.example.loginactivity.ExtraActivities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,14 +11,20 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.loginactivity.Classes.DataViewHolderHome;
+import com.example.loginactivity.Classes.EventAdapterDataHolder;
 import com.example.loginactivity.Classes.EventData;
-import com.example.loginactivity.EventRelated.EventInfo;
 import com.example.loginactivity.R;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class ExploreCategory extends AppCompatActivity {
 
@@ -29,6 +36,7 @@ public class ExploreCategory extends AppCompatActivity {
     Query query;
 
     RecyclerView dataRecyclerView;
+    ArrayList<EventData> eventDataArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +47,7 @@ public class ExploreCategory extends AppCompatActivity {
         backButton = findViewById(R.id.custom_toolbar_back_button);
 
         Intent intent = getIntent();
-        String evType = intent.getStringExtra("evType");
+        final String evType = intent.getStringExtra("evType");
 
         toolbarTitle.setText(evType);
 
@@ -62,41 +70,42 @@ public class ExploreCategory extends AppCompatActivity {
                 finish();
             }
         });
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        FirebaseRecyclerAdapter<EventData, DataViewHolderHome> fAdapter = new FirebaseRecyclerAdapter<EventData, DataViewHolderHome>
-                (
-                        EventData.class,
-                        R.layout.card_event_data,
-                        DataViewHolderHome.class,
-                        query
-                )
-        {
+        eventDataArrayList = new ArrayList<>();
+        fDatabase.addValueEventListener(new ValueEventListener() {
             @Override
-            protected void populateViewHolder(DataViewHolderHome dataViewHolder, EventData eventData, int i) {
-                EventData evData = eventData;
-                final int position = i;
-
-                dataViewHolder.setEventHandlerName(evData.getGroupName());
-                dataViewHolder.setEventName(evData.getEventName());
-                dataViewHolder.setEventTime(evData.getStartTime());
-                dataViewHolder.setEventLocation(evData.getAddress());
-                dataViewHolder.setNoOfMembers(Integer.toString(evData.getNoOfMembers()));
-
-                dataViewHolder.getDataView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String post_key = getRef(position).getKey();
-                        startActivity(new Intent(getApplicationContext(), EventInfo.class).putExtra("evId", post_key));
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    EventData eventData = child.getValue(EventData.class);
+                    if (eventData.getCategory().equals(evType)) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        Date strDate = new Date();
+                        try {
+                            strDate = sdf.parse(eventData.getDateOfEvent());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Date todayDate = new Date();
+                        if (todayDate.before(strDate) || (todayDate.getDate() == strDate.getDate()
+                                && todayDate.getMonth() == strDate.getMonth()
+                                && todayDate.getYear() == strDate.getYear()))
+                        {
+                            eventDataArrayList.add(eventData);
+                        }
                     }
-                });
-            }
-        };
+                }
 
-        dataRecyclerView.setAdapter(fAdapter);
+                EventAdapterDataHolder eventAdapterDataHolder = new EventAdapterDataHolder(getApplicationContext(), eventDataArrayList, dataRecyclerView);
+                dataRecyclerView.setAdapter(eventAdapterDataHolder);
+
+                fDatabase.child("Event Information").removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }

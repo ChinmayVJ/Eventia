@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingEnd="15dp"
+    android:paddingStart="10dp"
+    android:paddingBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/warning_text_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are you sure you don't want to go ?"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:textAlignment="viewStart"
+        android:paddingRight="5dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <Button
+        android:id="@+id/ok_button_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YES"
+        android:textSize="15sp"
+        android:textColor="@color/colorPrimary"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/warning_text_alert"
+        app:layout_constraintEnd_toEndOf="@id/warning_text_alert"
+        />
+
+    <Button
+        android:id="@+id/cancel_button_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CANCEL"
+        android:textSize="15sp"
+        android:textColor="@color/colorPrimary"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="@id/ok_button_alert"
+        app:layout_constraintEnd_toStartOf="@id/ok_button_alert"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

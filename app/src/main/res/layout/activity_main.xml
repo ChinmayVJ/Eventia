@@ -65,5 +65,4 @@
         android:text="@string/new_user_sign_up_here"
         android:layout_marginTop="10dp"/>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

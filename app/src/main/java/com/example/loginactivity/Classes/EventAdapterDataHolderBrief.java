@@ -2,25 +2,25 @@ package com.example.loginactivity.Classes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
 
 import com.example.loginactivity.EventRelated.EventInfo;
 import com.example.loginactivity.R;
 
 import java.util.ArrayList;
 
-public class EventAdapterDataHolder extends RecyclerView.Adapter<EventAdapterDataHolder.EvDataViewHolder>{
+public class EventAdapterDataHolderBrief extends RecyclerView.Adapter<EventAdapterDataHolderBrief.EvDataViewHolder>{
 
     private Context mCtx;
     private ArrayList<EventData> eventList;
     private RecyclerView recyclerView;
 
-    public EventAdapterDataHolder(Context mCtx, ArrayList<EventData> eventList, RecyclerView recyclerView){
+    public EventAdapterDataHolderBrief(Context mCtx, ArrayList<EventData> eventList, RecyclerView recyclerView){
         this.mCtx = mCtx;
         this.eventList = eventList;
         this.recyclerView = recyclerView;
@@ -28,7 +28,7 @@ public class EventAdapterDataHolder extends RecyclerView.Adapter<EventAdapterDat
 
     public EvDataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.card_event_data, parent, false);
+        View view = inflater.inflate(R.layout.card_event_data_brief, parent, false);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,11 +43,9 @@ public class EventAdapterDataHolder extends RecyclerView.Adapter<EventAdapterDat
     public void onBindViewHolder(EvDataViewHolder holder, int position) {
         EventData event = eventList.get(position);
 
-        holder.event_handler_name.setText(event.getGroupName());
-        holder.event_name.setText(event.getEventName());
-        holder.event_date.setText(String.valueOf(event.getDateOfEvent()));
-        holder.event_location.setText(String.valueOf(event.getAddress()));
-        holder.no_of_members.setText(String.valueOf(event.getNoOfMembers()));
+        holder.event_nameb.setText(event.getEventName());
+        holder.event_timeb.setText(String.valueOf(event.getStartTime()));
+        holder.event_locationb.setText(String.valueOf(event.getAddress()));
     }
     
     public int getItemCount() {
@@ -56,16 +54,14 @@ public class EventAdapterDataHolder extends RecyclerView.Adapter<EventAdapterDat
 
     class EvDataViewHolder extends RecyclerView.ViewHolder {
 
-        TextView event_handler_name, event_name, event_date, event_location, no_of_members;
+        TextView event_nameb, event_timeb, event_locationb;
 
         public EvDataViewHolder(View itemView) {
             super(itemView);
 
-            event_handler_name = itemView.findViewById(R.id.event_handlers_name);
-            event_name = itemView.findViewById(R.id.event_name);
-            event_date = itemView.findViewById(R.id.event_date_c);
-            event_location = itemView.findViewById(R.id.event_location);
-            no_of_members = itemView.findViewById(R.id.no_of_mems);
+            event_nameb = itemView.findViewById(R.id.event_name_brief);
+            event_timeb = itemView.findViewById(R.id.event_time_brief);
+            event_locationb = itemView.findViewById(R.id.event_location_brief);
         }
 
     }

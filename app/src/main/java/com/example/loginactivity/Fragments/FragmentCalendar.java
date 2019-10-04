@@ -1,6 +1,5 @@
 package com.example.loginactivity.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,13 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.loginactivity.Classes.DataViewHolderHome;
-import com.example.loginactivity.Classes.EventAdapterDataHolder;
+import com.example.loginactivity.Classes.EventAdapterDataHolderBrief;
 import com.example.loginactivity.Classes.EventData;
 import com.example.loginactivity.Classes.UserData;
-import com.example.loginactivity.EventRelated.EventInfo;
 import com.example.loginactivity.R;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,20 +28,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class FragmentNotifications extends Fragment {
+public class FragmentCalendar extends Fragment {
 
     FirebaseAuth fAuth;
     FirebaseDatabase fData;
     DatabaseReference fDatabase;
 
-    RecyclerView dataRecyclerView;
-    ArrayList<EventData> eventDataArrayList;
+    RecyclerView dataRecyclerViewToday;
+    RecyclerView dataRecyclerViewTomorrow;
+    ArrayList<EventData> eventDataArrayListToday;
+    ArrayList<EventData> eventDataArrayListTomorrow;
     ArrayList<String> eventIds;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        View root = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         fAuth = FirebaseAuth.getInstance();
         fData = FirebaseDatabase.getInstance();
@@ -53,15 +51,21 @@ public class FragmentNotifications extends Fragment {
         fDatabase.keepSynced(true);
         Log.e("working", "going tab working in onViewCreated");
 
-        dataRecyclerView = root.findViewById(R.id.data_view_notification_fragment);
+        dataRecyclerViewToday = root.findViewById(R.id.data_view_notification_fragment_today);
+        dataRecyclerViewTomorrow = root.findViewById(R.id.data_view_notification_fragment_tomorrow);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager( getContext() );
-        layoutManager.setReverseLayout( true );
-        layoutManager.setStackFromEnd( true );
-        dataRecyclerView.setHasFixedSize( true );
-        dataRecyclerView.setLayoutManager( layoutManager );
+        LinearLayoutManager layoutManagerToday = new LinearLayoutManager( getContext() );
+        layoutManagerToday.setReverseLayout( true );
+        layoutManagerToday.setStackFromEnd( true );
+        dataRecyclerViewToday.setHasFixedSize( true );
+        dataRecyclerViewToday.setLayoutManager( layoutManagerToday );
 
-        eventDataArrayList = new ArrayList<>();
+        LinearLayoutManager layoutManagerTomorrow = new LinearLayoutManager( getContext() );
+        layoutManagerTomorrow.setReverseLayout( true );
+        layoutManagerTomorrow.setStackFromEnd( true );
+        dataRecyclerViewTomorrow.setHasFixedSize( true );
+        dataRecyclerViewTomorrow.setLayoutManager( layoutManagerTomorrow );
+
         eventIds = new ArrayList<>();
         fDatabase.child("User Information").child(fAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,6 +85,8 @@ public class FragmentNotifications extends Fragment {
             }
         });
 
+        eventDataArrayListToday = new ArrayList<>();
+        eventDataArrayListTomorrow = new ArrayList<>();
         fDatabase.child("Event Information").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -99,18 +105,23 @@ public class FragmentNotifications extends Fragment {
                             }
                             Date todayDate = new Date();
                             Log.e("currentDate", todayDate.toString());
-                            if (todayDate.getDate() == strDate.getDate()
-                            && todayDate.getMonth() == strDate.getMonth()
+                            if (todayDate.getMonth() == strDate.getMonth()
                             && todayDate.getYear() == strDate.getYear()) {
-//                                your_date_is_outdated = true;
-                                eventDataArrayList.add(eventData);
+
+                                if(todayDate.getDate() == strDate.getDate())
+                                    eventDataArrayListToday.add(eventData);
+                                else if (todayDate.getDate() + 1 == strDate.getDate())
+                                    eventDataArrayListTomorrow.add(eventData);
                             }
                         }
                     }
                 }
 
-                EventAdapterDataHolder eventAdapterDataHolder = new EventAdapterDataHolder(getContext(), eventDataArrayList, dataRecyclerView);
-                dataRecyclerView.setAdapter(eventAdapterDataHolder);
+                EventAdapterDataHolderBrief eventAdapterDataHolderToday = new EventAdapterDataHolderBrief(getContext(), eventDataArrayListToday, dataRecyclerViewToday);
+                dataRecyclerViewToday.setAdapter(eventAdapterDataHolderToday);
+
+                EventAdapterDataHolderBrief eventAdapterDataHolderTomorrow = new EventAdapterDataHolderBrief(getContext(), eventDataArrayListTomorrow, dataRecyclerViewTomorrow);
+                dataRecyclerViewTomorrow.setAdapter(eventAdapterDataHolderTomorrow);
 
                 fDatabase.child("Event Information").removeEventListener(this);
             }

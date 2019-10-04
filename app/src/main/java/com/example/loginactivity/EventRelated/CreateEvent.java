@@ -37,13 +37,14 @@ import java.util.Calendar;
 
 public class CreateEvent extends AppCompatActivity {
 
+    TextView toolbarTitle;
     EditText groupName;
     EditText eventName;
     EditText description;
     TextView datePickerText;
     TextView timePickerText;
     EditText duration;
-    EditText eventLocationBldg;
+    EditText eventLocation;
     Spinner categorySpinner;
     ImageButton backButton;
     ImageView companyPic;
@@ -58,19 +59,22 @@ public class CreateEvent extends AppCompatActivity {
 
     String hostName;
     String category;
+    String eventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
 
+        eventId = getIntent().getStringExtra("status");
+
+        toolbarTitle = findViewById(R.id.create_event_title);
         groupName = findViewById(R.id.group_name_text);
         eventName = findViewById(R.id.event_name_text);
         description = findViewById(R.id.description_text);
         categorySpinner = findViewById(R.id.category_spinner);
-
         duration = findViewById(R.id.duration_info);
-        eventLocationBldg = findViewById(R.id.event_location_bldg);
+        eventLocation = findViewById(R.id.event_location_new_event);
 
         datePickerText = findViewById(R.id.date_info);
         timePickerText = findViewById(R.id.time_info);
@@ -86,6 +90,36 @@ public class CreateEvent extends AppCompatActivity {
         String[] categories = new String[]{"- Select -", "Outdoors & Adventure", "Technology", "Health & Wellness", "Sports & Fitness", "Learning", "Food & Drink", "Language & Culture", "Music", "Film", "Book Clubs", "Dance", "Fashion", "Social", "Career & Business"};
         ArrayAdapter<String> cat_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
         categorySpinner.setAdapter(cat_adapter);
+
+        if (!eventId.equals("new")){
+
+            toolbarTitle.setText("Edit Event Details");
+            createEvent.setText("Apply Changes");
+
+            fDatabase.child("Event Information").child(eventId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    EventData eventData = dataSnapshot.getValue(EventData.class);
+
+                    groupName.setText(eventData.getGroupName());
+                    eventName.setText(eventData.getEventName());
+                    description.setText(eventData.getDescription());
+                    category = eventData.getCategory();
+                    duration.setText(String.valueOf(eventData.getDuration()));
+                    eventLocation.setText(eventData.getAddress());
+                    datePickerText.setText(eventData.getDateOfEvent());
+                    timePickerText.setText(eventData.getStartTime());
+
+                    fDatabase.child("Event Information").child(eventId).removeEventListener(this);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -137,7 +171,8 @@ public class CreateEvent extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                category = "Social";
+                if (eventId.equals("new"))
+                    category = "Social";
             }
         });
 
@@ -224,14 +259,26 @@ public class CreateEvent extends AppCompatActivity {
         String dateOfEvent = datePickerText.getText().toString().trim();
         String timeOfEvent = timePickerText.getText().toString().trim();
         double duratn = Double.parseDouble(duration.getText().toString().trim());
-        String address = eventLocationBldg.getText().toString().trim();
+        String address = eventLocation.getText().toString().trim();
 
-        String id = fDatabase.child("Event Information").push().getKey();
+        String id;
+        if (eventId.equals("new"))
+            id = fDatabase.child("Event Information").push().getKey();
+        else
+            id = eventId;
+
         EventData evData = new EventData(id, hostName, group_name, event_name, descrip, dateOfEvent, timeOfEvent, duratn, address, category);
 
         fDatabase.child("Event Information").child(id).setValue(evData);
-        Toast.makeText(this, "Data Inserted", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Event Created", Toast.LENGTH_SHORT).show();
 
+        if (!eventId.equals("new")) {
+            Toast.makeText(this, "Changes Applied", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, HomePage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
         finish();
     }
 }

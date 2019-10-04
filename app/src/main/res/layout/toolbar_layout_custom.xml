@@ -28,8 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/custom_toolbar_back_button"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:text="Explore"
+            android:layout_marginStart="15dp"
+            android:text="Title"
             android:textSize="22sp"
             android:textColor="#FFFFFF"/>
 

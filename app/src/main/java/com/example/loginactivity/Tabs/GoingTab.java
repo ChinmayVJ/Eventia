@@ -50,7 +50,6 @@ public class GoingTab extends Fragment{
         fData = FirebaseDatabase.getInstance();
         fDatabase = fData.getReference();
         fDatabase.keepSynced(true);
-        Log.e("working", "going tab working in onViewCreated");
 
         dataRecyclerView = root.findViewById(R.id.data_view_going_tab);
         mSwipeRefreshLayout = root.findViewById(R.id.swipeToRefresh_going);
@@ -114,11 +113,7 @@ public class GoingTab extends Fragment{
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            if (new Date().after(strDate)) {
-//                                your_date_is_outdated = true;
-                            }
-                            else{
-//                                your_date_is_outdated = false;
+                            if (new Date().before(strDate)) {
                                 eventDataArrayList.add(eventData);
                             }
                         }
@@ -128,7 +123,6 @@ public class GoingTab extends Fragment{
                 EventAdapterDataHolder eventAdapterDataHolder = new EventAdapterDataHolder(getContext(), eventDataArrayList, dataRecyclerView);
                 dataRecyclerView.setAdapter(eventAdapterDataHolder);
 
-                Log.d("eventDataArrayList 1 ", String.valueOf(eventDataArrayList));
                 fDatabase.child("Event Information").removeEventListener(this);
             }
 

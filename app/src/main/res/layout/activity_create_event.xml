@@ -296,7 +296,7 @@
                         android:layout_marginTop="15dp"/>
 
                     <EditText
-                        android:id="@+id/event_location_bldg"
+                        android:id="@+id/event_location_new_event"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:hint="Pune"
@@ -367,7 +367,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:paddingBottom="10dp">
 
                     <Button

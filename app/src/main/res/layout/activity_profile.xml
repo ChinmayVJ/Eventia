@@ -1,189 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Profile.Profile">
 
-    <include
-        android:id="@+id/toolbar_profile"
-        layout="@layout/toolbar_layout_profile_info" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_profile"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/general_data_card_view"
+        <include
+            android:id="@+id/toolbar_profile"
+            layout="@layout/toolbar_layout_profile_info" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_profile"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/general_data_card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp">
+                android:paddingTop="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_pic"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="15dp"
-                    android:src="@drawable/company_pic"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <TextView
-                    android:id="@+id/text_name_profile"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="Name Surname"
-                    android:textColor="#000000"
-                    android:textSize="27sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/profile_pic" />
+                    android:paddingTop="20dp"
+                    android:paddingBottom="5dp">
 
-                <TextView
-                    android:id="@+id/text_city"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="Pune"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_name_profile" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_pic"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/company_pic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-                <Button
-                    android:id="@+id/button_edit_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="#ffffff"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="EDIT PROFILE"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_city" />
+                    <TextView
+                        android:id="@+id/text_name_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Name Surname"
+                        android:textColor="#000000"
+                        android:textSize="27sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/profile_pic" />
 
-                <TextView
-                    android:id="@+id/member_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="40dp"
-                    android:text="0"
-                    android:textColor="#000000"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/button_edit_profile"
-                    app:layout_constraintTop_toBottomOf="@id/button_edit_profile" />
+                    <TextView
+                        android:id="@+id/text_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Address"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_name_profile" />
 
-                <TextView
-                    android:id="@+id/member_count_rep"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Participant"
-                    android:textColor="#000000"
-                    android:textSize="22sp"
-                    app:layout_constraintEnd_toEndOf="@+id/member_count"
-                    app:layout_constraintStart_toStartOf="@+id/member_count"
-                    app:layout_constraintTop_toBottomOf="@id/member_count" />
 
-                <TextView
-                    android:id="@+id/interest_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="10dp"
-                    android:text="0"
-                    android:textColor="#000000"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/button_edit_profile"
-                    app:layout_constraintTop_toBottomOf="@id/button_edit_profile" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_city" >
 
-                <TextView
-                    android:id="@+id/interest_count_rep"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Interests"
-                    android:textColor="#000000"
-                    android:textSize="22sp"
-                    app:layout_constraintEnd_toEndOf="@+id/interest_count"
-                    app:layout_constraintStart_toStartOf="@+id/interest_count"
-                    app:layout_constraintTop_toBottomOf="@id/interest_count" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                            <TextView
+                                android:id="@+id/member_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="40dp"
+                                android:text="0"
+                                android:textColor="#000000"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                android:layout_centerHorizontal="true"/>
 
-        </androidx.cardview.widget.CardView>
+                            <TextView
+                                android:id="@+id/member_count_rep"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Participant"
+                                android:textColor="#000000"
+                                android:textSize="22sp"
+                                android:layout_below="@id/member_count"
+                                android:layout_centerHorizontal="true"/>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:elevation="5dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/general_data_card_view">
+                        </RelativeLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/interest_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="40dp"
+                                android:layout_marginTop="10dp"
+                                android:text="0"
+                                android:textColor="#000000"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                android:layout_centerHorizontal="true"/>
+
+                            <TextView
+                                android:id="@+id/interest_count_rep"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="Interests"
+                                android:textColor="#000000"
+                                android:textSize="22sp"
+                                android:layout_below="@id/interest_count"
+                                android:layout_centerHorizontal="true"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/interests_card_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="15dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:elevation="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/general_data_card_view">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="15dp">
+
+                    <TextView
+                        android:id="@+id/text_interest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Interests"
+                        android:textColor="#000000"
+                        android:textSize="22sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.hootsuite.nachos.NachoTextView
+                        android:id="@+id/nacho_text_view_profile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:chipHeight="40dp"
+                        app:chipTextSize="16dp"
+                        app:chipVerticalSpacing="3dp"
+                        android:hint="No Interests are Selected Yet"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="15dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_interest" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/my_events_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:layout_constraintTop_toBottomOf="@id/interests_card_view">
 
                 <TextView
-                    android:id="@+id/text_interest"
+                    android:id="@+id/text_my_events"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Interests"
+                    android:paddingBottom="10dp"
+                    android:text="My Events"
                     android:textColor="#000000"
-                    android:textSize="22sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="22sp" />
 
-                <com.hootsuite.nachos.NachoTextView
-                    android:id="@+id/nacho_text_view_profile"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:chipHeight="40dp"
-                    app:chipTextSize="16dp"
-                    app:chipVerticalSpacing="3dp"
-                    android:hint="No Interests are Selected Yet"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="15dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_interest" />
+            </androidx.cardview.widget.CardView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.cardview.widget.CardView>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/data_view_profile_my_events"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </LinearLayout>
+
+</ScrollView>
