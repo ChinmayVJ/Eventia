@@ -17,7 +17,7 @@ import com.example.loginactivity.R;
 
 public class FragmentExplore extends Fragment {
 
-    GridLayout catsGrid;
+    private GridLayout catsGrid;
 
     @Nullable
     @Override
@@ -92,6 +92,7 @@ public class FragmentExplore extends Fragment {
 //                            category = "Career & Business";
                             break;
                     }
+
                 }
 
             });

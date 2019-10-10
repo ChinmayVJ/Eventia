@@ -59,7 +59,7 @@
 
             <!--Image of Event Handler's Organization-->
             <ImageView
-                android:id="@+id/company_pic"
+                android:id="@+id/company_pic_info"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/company_pic"
@@ -76,8 +76,8 @@
                 android:text="Alacrity India"
                 android:textSize="17sp"
                 android:textColor="#000000"
-                app:layout_constraintLeft_toRightOf="@id/company_pic"
-                app:layout_constraintTop_toTopOf="@id/company_pic"
+                app:layout_constraintLeft_toRightOf="@id/company_pic_info"
+                app:layout_constraintTop_toTopOf="@id/company_pic_info"
                 android:layout_marginLeft="15dp"/>
 
             <!--Type of Group-->
@@ -97,8 +97,8 @@
                 android:text="Founders Meetup 3.0"
                 android:textSize="27sp"
                 android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="@id/company_pic"
-                app:layout_constraintTop_toBottomOf="@id/company_pic"
+                app:layout_constraintStart_toStartOf="@id/company_pic_info"
+                app:layout_constraintTop_toBottomOf="@id/company_pic_info"
                 android:layout_marginTop="20dp"/>
 
             <!--Details of Event-->

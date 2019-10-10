@@ -112,7 +112,9 @@ public class PastTab extends Fragment{
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            if (new Date().after(strDate)) {
+                            if (new Date().before(strDate)) {
+                            }
+                            else{
                                 eventDataArrayList.add(eventData);
                             }
                         }

@@ -30,18 +30,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hootsuite.nachos.NachoTextView;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Profile extends AppCompatActivity {
 
     ImageButton back;
     Toolbar toolbar;
 
+    CircleImageView profilePic;
     TextView usersName;
+    TextView usersAddress;
     TextView memberCount;
     TextView interestCount;
     NachoTextView nachoTextView;
@@ -64,7 +69,10 @@ public class Profile extends AppCompatActivity {
 
         back = findViewById(R.id.toolbar_back_button_profile);
         toolbar = findViewById(R.id.toolbar_profile);
+
+        profilePic = findViewById(R.id.profile_pic_my_profile);
         usersName = findViewById(R.id.text_name_profile);
+        usersAddress = findViewById(R.id.text_address_profile);
         interestCount = findViewById(R.id.interest_count);
         memberCount = findViewById(R.id.member_count);
         nachoTextView = findViewById(R.id.nacho_text_view_profile);
@@ -90,6 +98,9 @@ public class Profile extends AppCompatActivity {
                 UserData userData = dataSnapshot.getValue(UserData.class);
                 userName = userData.getName();
                 usersName.setText(userName);
+                if(!userData.getImageUrl().equals("Not uploading")){
+                    Picasso.get().load(userData.getImageUrl()).into(profilePic);
+                }
                 try {
                     usersInterest = new ArrayList<>(userData.getUserInterests());
                     interestCount.setText(String.valueOf(usersInterest.size()));
@@ -105,7 +116,14 @@ public class Profile extends AppCompatActivity {
                     memberCount.setText(String.valueOf(memberOfGroup.size()));
                 }
                 catch (Exception e){
+                    e.printStackTrace();
+                }
 
+                try {
+                    usersAddress.setText(userData.getAddress());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
                 }
 
             }

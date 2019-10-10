@@ -5,10 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -25,6 +31,9 @@ import com.example.loginactivity.Classes.EventData;
 import com.example.loginactivity.Classes.UserData;
 import com.example.loginactivity.ExtraActivities.HomePage;
 import com.example.loginactivity.R;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,8 +41,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CreateEvent extends AppCompatActivity {
 
@@ -47,8 +64,10 @@ public class CreateEvent extends AppCompatActivity {
     EditText eventLocation;
     Spinner categorySpinner;
     ImageButton backButton;
-    ImageView companyPic;
+    CircleImageView companyPic;
+    ImageView editCompanyPic;
     Button createEvent;
+    ProgressBar progressBar;
 
     DatePickerDialog.OnDateSetListener dateSetListener;
     TimePickerDialog.OnTimeSetListener timeSetListener;
@@ -56,10 +75,15 @@ public class CreateEvent extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     DatabaseReference fDatabase;
+    StorageReference fReference;
+    StorageTask<UploadTask.TaskSnapshot> uploadTask;
 
     String hostName;
     String category;
     String eventId;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    String imageUrl;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +91,8 @@ public class CreateEvent extends AppCompatActivity {
         setContentView(R.layout.activity_create_event);
 
         eventId = getIntent().getStringExtra("status");
+
+        imageUrl = "Not uploading";
 
         toolbarTitle = findViewById(R.id.create_event_title);
         groupName = findViewById(R.id.group_name_text);
@@ -76,16 +102,21 @@ public class CreateEvent extends AppCompatActivity {
         duration = findViewById(R.id.duration_info);
         eventLocation = findViewById(R.id.event_location_new_event);
 
+        progressBar = findViewById(R.id.company_pic_loading);
         datePickerText = findViewById(R.id.date_info);
         timePickerText = findViewById(R.id.time_info);
         backButton = findViewById(R.id.toolbar_back_button);
         companyPic = findViewById(R.id.company_pic);
+        editCompanyPic = findViewById(R.id.edit_company_pic);
         createEvent = findViewById(R.id.create_event_button);
 
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
         fDatabase = FirebaseDatabase.getInstance().getReference();
+        fReference = FirebaseStorage.getInstance().getReference().child("Event Information");
         fDatabase.keepSynced(true);
+
+        progressBar.setVisibility(View.INVISIBLE);
 
         String[] categories = new String[]{"- Select -", "Outdoors & Adventure", "Technology", "Health & Wellness", "Sports & Fitness", "Learning", "Food & Drink", "Language & Culture", "Music", "Film", "Book Clubs", "Dance", "Fashion", "Social", "Career & Business"};
         ArrayAdapter<String> cat_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
@@ -109,13 +140,18 @@ public class CreateEvent extends AppCompatActivity {
                     eventLocation.setText(eventData.getAddress());
                     datePickerText.setText(eventData.getDateOfEvent());
                     timePickerText.setText(eventData.getStartTime());
+                    try {
+                        String uri = eventData.getImageUrl();
+                        if(!uri.equals("Not uploading"))
+                            Picasso.get().load(uri).into(companyPic);
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
 
                     fDatabase.child("Event Information").child(eventId).removeEventListener(this);
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 }
             });
 
@@ -228,6 +264,12 @@ public class CreateEvent extends AppCompatActivity {
             }
         };
 
+        editCompanyPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseImage();
+            }
+        });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,14 +293,78 @@ public class CreateEvent extends AppCompatActivity {
         });
     }
 
+    public void chooseImage(){
+        imageUrl = "Still Uploading";
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            imageUri = data.getData();
+
+            Picasso.get().load(imageUri).into(companyPic);
+        }
+    }
+
+    private void uploadImage(){
+
+        if(imageUri != null){
+
+            progressBar.setVisibility(View.VISIBLE);
+
+            final StorageReference fileReference = fReference.child("companyPic." + getFileExtension(imageUri));
+
+            uploadTask = fileReference.putFile(imageUri);
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return fileReference.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        imageUrl = downloadUri.toString();
+
+                        readData();
+                    }
+                }
+            });
+        }
+    }
+
     public void afterCreateButtonPressed(View view){
 
+        uploadImage();
+
+        readData();
+
+    }
+
+    public void readData() {
         String group_name = groupName.getText().toString().trim();
         String event_name = eventName.getText().toString().trim();
-        String descrip = description.getText().toString().trim();
+        String description_ = description.getText().toString().trim();
         String dateOfEvent = datePickerText.getText().toString().trim();
         String timeOfEvent = timePickerText.getText().toString().trim();
-        double duratn = Double.parseDouble(duration.getText().toString().trim());
+        double duration_ = Double.parseDouble(duration.getText().toString().trim());
         String address = eventLocation.getText().toString().trim();
 
         String id;
@@ -267,18 +373,24 @@ public class CreateEvent extends AppCompatActivity {
         else
             id = eventId;
 
-        EventData evData = new EventData(id, hostName, group_name, event_name, descrip, dateOfEvent, timeOfEvent, duratn, address, category);
+        if (!imageUrl.equals("Not uploading")){
 
-        fDatabase.child("Event Information").child(id).setValue(evData);
-        Toast.makeText(this, "Event Created", Toast.LENGTH_SHORT).show();
+            EventData evData = new EventData(id, hostName, group_name, event_name, description_, dateOfEvent, timeOfEvent, duration_, address, category);
+            evData.setImageUrl(imageUrl);
+            Log.e("compPic", imageUrl);
 
-        if (!eventId.equals("new")) {
-            Toast.makeText(this, "Changes Applied", Toast.LENGTH_SHORT).show();
+            fDatabase.child("Event Information").child(id).setValue(evData);
+            Toast.makeText(getApplicationContext(), "Event Created", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(this, HomePage.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            if (!eventId.equals("new")) {
+                Toast.makeText(getApplicationContext(), "Changes Applied", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+            finish();
         }
-        finish();
     }
+
 }

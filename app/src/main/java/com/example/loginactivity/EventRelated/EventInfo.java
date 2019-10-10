@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.INotificationSideChannel;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,11 +27,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class EventInfo extends AppCompatActivity {
 
+    ImageView companyPic;
     TextView evGroupName;
     TextView evName;
     TextView evDate;
@@ -51,6 +58,7 @@ public class EventInfo extends AppCompatActivity {
     boolean alreadyExists;
     String event_id;
     String hostName;
+    boolean pastEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +75,7 @@ public class EventInfo extends AppCompatActivity {
 
         backButton = findViewById(R.id.toolbar_back_button);
         editEvent = findViewById(R.id.edit_event);
-
+        companyPic = findViewById(R.id.company_pic_info);
         evGroupName = findViewById(R.id.event_group_name);
         evName = findViewById(R.id.event_name_info);
         evDate = findViewById(R.id.event_date);
@@ -78,6 +86,8 @@ public class EventInfo extends AppCompatActivity {
         evDescription = findViewById(R.id.description_data);
         joinButton = findViewById(R.id.join_group_button);
         cancel = findViewById(R.id.cancel_participation);
+
+        pastEvent = false;
 
         eventInformationFunction(0);
         userInformationFunction(0);
@@ -152,6 +162,69 @@ public class EventInfo extends AppCompatActivity {
         });
     }
 
+    private void eventInformationFunction(final int choice){
+
+        fDatabase.child("Event Information").child(event_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                EventData evData = dataSnapshot.getValue(EventData.class);
+                if (choice == 0){
+                    evGroupName.setText(evData.getGroupName());
+                    evName.setText(evData.getEventName());
+                    evDate.setText(evData.getDateOfEvent());
+                    evTimeAndDur.setText(evData.getStartTime() + " Duration : " + evData.getDuration() + " hrs");
+                    evLocation.setText(evData.getAddress());
+                    hostName = evData.getHostName();
+                    evHostName.setText("Hosted by " + hostName);
+                    evMembers.setText(evData.getNoOfMembers() + " people are going");
+                    evDescription.setText(evData.getDescription());
+                    try {
+                        String uri = evData.getImageUrl();
+                        if(!uri.equals("Not uploading"))
+                            Picasso.get().load(uri).into(companyPic);
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date strDate = new Date();
+                    try {
+                        strDate = sdf.parse(evData.getDateOfEvent());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if (new Date().after(strDate)) {
+                        joinButton.setVisibility(View.INVISIBLE);
+                        cancel.setVisibility(View.INVISIBLE);
+                        pastEvent = true;
+                    }
+
+                }
+                else if (choice == 1){
+                    if(!alreadyExists) {
+                        evData.setNoOfMembers(evData.getNoOfMembers() + 1);
+                        fDatabase.child("Event Information").child(event_id).setValue(evData);
+                        Toast.makeText(EventInfo.this, "Response Recorded", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(EventInfo.this, "Response Already Recorded", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else if (choice == 2){
+                    evData.setNoOfMembers(evData.getNoOfMembers() - 1);
+
+                    fDatabase.child("Event Information").child(event_id).setValue(evData);
+                }
+
+                fDatabase.child("Event Information").child(event_id).removeEventListener(this);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void userInformationFunction(final int choice){
 
         fDatabase.child("User Information").child(fUser.getUid()).addValueEventListener(new ValueEventListener() {
@@ -164,16 +237,18 @@ public class EventInfo extends AppCompatActivity {
                         ArrayList<String> memOfGrp = new ArrayList<>(userData.getMemberOfGroup());
                         if(memOfGrp.contains(event_id)) {
                             alreadyExists = true;
-                            joinButton.setText("You are Going");
-                            joinButton.setEnabled(false);
-                            cancel.setVisibility(View.VISIBLE);
+                            if(!pastEvent) {
+                                joinButton.setText("You are Going");
+                                joinButton.setEnabled(false);
+                                cancel.setVisibility(View.VISIBLE);
+                            }
                         }
                         else {
                             alreadyExists = false;
                             cancel.setVisibility(View.INVISIBLE);
                         }
 
-                        if(hostName.equals(userData.getName())){
+                        if(hostName.equals(userData.getName()) && !pastEvent){
                             editEvent.setVisibility(View.VISIBLE);
                         }
                         else{
@@ -208,6 +283,7 @@ public class EventInfo extends AppCompatActivity {
                         userData.setMemberOfGroup(memOfGrp);
                     }
                     catch (Exception e){
+                        e.printStackTrace();
                     }
 
                     fDatabase.child("User Information").child(fUser.getUid()).setValue(userData);
@@ -223,46 +299,4 @@ public class EventInfo extends AppCompatActivity {
 
     }
 
-    private void eventInformationFunction(final int choice){
-
-        fDatabase.child("Event Information").child(event_id).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                EventData evData = dataSnapshot.getValue(EventData.class);
-                if (choice == 0){
-                    evGroupName.setText(evData.getGroupName());
-                    evName.setText(evData.getEventName());
-                    evDate.setText(evData.getDateOfEvent());
-                    evTimeAndDur.setText(evData.getStartTime() + " Duration : " + evData.getDuration() + " hrs");
-                    evLocation.setText(evData.getAddress());
-                    hostName = evData.getHostName();
-                    evHostName.setText("Hosted by " + hostName);
-                    evMembers.setText(String.valueOf(evData.getNoOfMembers()) + " people are going");
-                    evDescription.setText(evData.getDescription());
-                }
-                else if (choice == 1){
-                    if(!alreadyExists) {
-                        evData.setNoOfMembers(evData.getNoOfMembers() + 1);
-                        fDatabase.child("Event Information").child(event_id).setValue(evData);
-                        Toast.makeText(EventInfo.this, "Response Recorded", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(EventInfo.this, "Response Already Recorded", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else if (choice == 2){
-                    evData.setNoOfMembers(evData.getNoOfMembers() - 1);
-
-                    fDatabase.child("Event Information").child(event_id).setValue(evData);
-                }
-
-                fDatabase.child("Event Information").child(event_id).removeEventListener(this);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
 }

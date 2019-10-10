@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class UserData {
 
     private String name;
+    private String imageUrl;
     private String address;
     private String gender;
     private ArrayList<String> memberOfGroup;
@@ -28,6 +29,14 @@ public class UserData {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getAddress() {

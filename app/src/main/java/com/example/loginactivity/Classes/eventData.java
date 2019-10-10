@@ -12,6 +12,7 @@ public class EventData {
     private String address;
     private String category;
     private int noOfMembers;
+    private String imageUrl;
 
     public EventData(){}
 
@@ -35,6 +36,14 @@ public class EventData {
 
     public void setEvId(String evId) {
         this.evId = evId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getHostName() {

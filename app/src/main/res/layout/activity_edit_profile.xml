@@ -22,6 +22,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ProgressBar
+                android:id="@+id/profile_pic_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
             <TextView
                 android:id="@+id/text_personal_details"
                 android:layout_width="wrap_content"
@@ -35,6 +45,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_pic_edit_profile"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/profile_pic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_personal_details"/>
+
+            <ImageView
+                android:id="@+id/edit_profile_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/profile_pic_edit_profile"
+                app:layout_constraintEnd_toEndOf="@id/profile_pic_edit_profile"
+                android:src="@drawable/edit_icon"/>
+
             <TextView
                 android:id="@+id/text_name_profile"
                 android:layout_width="wrap_content"
@@ -44,7 +72,7 @@
                 android:textColor="@color/colorAccent"
                 android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="@id/text_personal_details"
-                app:layout_constraintTop_toBottomOf="@id/text_personal_details"/>
+                app:layout_constraintTop_toBottomOf="@id/profile_pic_edit_profile"/>
 
             <EditText
                 android:id="@+id/name_entry"
@@ -58,7 +86,7 @@
                 app:layout_constraintTop_toBottomOf="@id/text_name_profile" />
 
             <TextView
-                android:id="@+id/text_address"
+                android:id="@+id/text_address_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Address"
@@ -76,8 +104,8 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:hint="Enter your address"
-                app:layout_constraintStart_toStartOf="@id/text_address"
-                app:layout_constraintTop_toBottomOf="@id/text_address"
+                app:layout_constraintStart_toStartOf="@id/text_address_profile"
+                app:layout_constraintTop_toBottomOf="@id/text_address_profile"
                 />
 
             <TextView

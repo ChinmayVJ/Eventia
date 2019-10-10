@@ -38,11 +38,11 @@
                     android:paddingBottom="5dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profile_pic"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:id="@+id/profile_pic_my_profile"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_marginTop="15dp"
-                        android:src="@drawable/company_pic"
+                        android:src="@drawable/profile_pic"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
@@ -60,10 +60,10 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/profile_pic" />
+                        app:layout_constraintTop_toBottomOf="@id/profile_pic_my_profile" />
 
                     <TextView
-                        android:id="@+id/text_city"
+                        android:id="@+id/text_address_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -84,7 +84,7 @@
                         android:weightSum="2"
                         android:layout_marginTop="10dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/text_city" >
+                        app:layout_constraintTop_toBottomOf="@id/text_address_profile" >
 
                         <RelativeLayout
                             android:layout_width="match_parent"
