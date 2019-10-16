@@ -112,8 +112,13 @@ public class EditProfile extends AppCompatActivity {
                 if(!userData.getAddress().equals("")){
                     usersAddress.setText(userData.getAddress());
                 }
-                if(!userData.getImageUrl().equals("Not uploading")){
-                    Picasso.get().load(userData.getImageUrl()).into(profilePic);
+                try {
+                    if (!userData.getImageUrl().equals("Not uploading")) {
+                        Picasso.get().load(userData.getImageUrl()).into(profilePic);
+                    }
+                }
+                catch (NullPointerException e){
+                    e.printStackTrace();
                 }
                 if(String.valueOf(userData.getUserInterests()) != null){
                     nachoTextView.setText(userData.getUserInterests());
@@ -248,11 +253,10 @@ public class EditProfile extends AppCompatActivity {
             for (Chip chip : nachoTextView.getAllChips()) {
                 Object data = chip.getData();
                 String interest = data.toString();
-                Log.d("Interest is : ", interest);
                 ints.add(interest);
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }
 
         fDatabase.addValueEventListener(new ValueEventListener() {

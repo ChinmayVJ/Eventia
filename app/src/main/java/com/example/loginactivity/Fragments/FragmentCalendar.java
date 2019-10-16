@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +31,9 @@ import java.util.Date;
 
 public class FragmentCalendar extends Fragment {
 
+    TextView noEventsToday;
+    TextView noEventsTomorrow;
+
     FirebaseAuth fAuth;
     FirebaseDatabase fData;
     DatabaseReference fDatabase;
@@ -49,7 +53,9 @@ public class FragmentCalendar extends Fragment {
         fData = FirebaseDatabase.getInstance();
         fDatabase = fData.getReference();
         fDatabase.keepSynced(true);
-        Log.e("working", "going tab working in onViewCreated");
+
+        noEventsToday = root.findViewById(R.id.no_events_today_text);
+        noEventsTomorrow = root.findViewById(R.id.no_events_tomorrow_text);
 
         dataRecyclerViewToday = root.findViewById(R.id.data_view_notification_fragment_today);
         dataRecyclerViewTomorrow = root.findViewById(R.id.data_view_notification_fragment_tomorrow);
@@ -117,8 +123,14 @@ public class FragmentCalendar extends Fragment {
                     }
                 }
 
+                if (eventDataArrayListToday.size() != 0)
+                    noEventsToday.setVisibility(View.INVISIBLE);
+
                 EventAdapterDataHolderBrief eventAdapterDataHolderToday = new EventAdapterDataHolderBrief(getContext(), eventDataArrayListToday, dataRecyclerViewToday);
                 dataRecyclerViewToday.setAdapter(eventAdapterDataHolderToday);
+
+                if (eventDataArrayListTomorrow.size() != 0)
+                    noEventsTomorrow.setVisibility(View.INVISIBLE);
 
                 EventAdapterDataHolderBrief eventAdapterDataHolderTomorrow = new EventAdapterDataHolderBrief(getContext(), eventDataArrayListTomorrow, dataRecyclerViewTomorrow);
                 dataRecyclerViewTomorrow.setAdapter(eventAdapterDataHolderTomorrow);

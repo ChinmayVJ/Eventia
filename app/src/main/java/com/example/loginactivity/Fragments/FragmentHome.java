@@ -22,7 +22,6 @@ import android.widget.ImageView;
 
 public class FragmentHome extends Fragment {
 
-    FloatingActionButton addEventButton;
     ImageView profileImage;
 
     ViewPagerAdapter viewPagerAdapter;
@@ -42,15 +41,7 @@ public class FragmentHome extends Fragment {
         tabs = root.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        addEventButton = root.findViewById(R.id.fab_event_adder);
         profileImage = root.findViewById(R.id.profile_icon);
-
-        addEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), CreateEvent.class).putExtra("status", "new"));
-            }
-        });
 
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override

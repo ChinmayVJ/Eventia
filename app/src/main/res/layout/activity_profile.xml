@@ -37,11 +37,21 @@
                     android:paddingTop="20dp"
                     android:paddingBottom="5dp">
 
+                    <ProgressBar
+                        android:id="@+id/profile_pic_loading_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_pic_my_profile"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginTop="15dp"
+                        android:elevation="3dp"
                         android:src="@drawable/profile_pic"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -232,6 +242,15 @@
             </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <TextView
+            android:id="@+id/no_events_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="No Events Hosted Yet"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 

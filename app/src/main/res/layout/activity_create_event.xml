@@ -7,9 +7,9 @@
     android:layout_height="match_parent"
     tools:context=".EventRelated.CreateEvent">
 
-    <include
+    <!-- <include
         layout="@layout/toolbar_layout_create_event"
-        android:id="@+id/toolbar_create_event"/>
+        android:id="@+id/toolbar_create_event"/> -->
 
     <ProgressBar
         android:id="@+id/company_pic_loading"
@@ -25,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_create_event">
+        app:layout_constraintTop_toTopOf="parent" >
+        <!--app:layout_constraintTop_toBottomOf="@id/toolbar_create_event" -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -154,6 +155,7 @@
                             android:maxLines="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textPersonName|textCapWords"
                             android:hint="Organizer" />
 
 
@@ -173,6 +175,7 @@
                         <EditText
                             android:id="@+id/event_name_text"
                             android:maxLines="1"
+                            android:inputType="textPersonName|textCapWords"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Event Name" />
@@ -267,7 +270,7 @@
                         android:id="@+id/time_info"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="Time"
+                        android:hint="Start Time"
                         android:textSize="17sp"
                         android:textColor="#2C2B2B"
                         app:layout_constraintLeft_toRightOf="@id/time_icon"
@@ -333,7 +336,7 @@
                         android:id="@+id/event_location_new_event"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="Pune"
+                        android:hint="Enter Address here"
                         android:textSize="17sp"
                         android:textColor="#2C2B2B"
                         app:layout_constraintLeft_toRightOf="@id/location_icon"
@@ -409,6 +412,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_shape"
+                        android:inputType="textPersonName|textCapWords"
                         android:text="Create Event"
                         android:textColor="#FFFFFF"
                         app:layout_constraintTop_toTopOf="parent"

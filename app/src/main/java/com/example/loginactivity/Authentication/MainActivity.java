@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         dialog = new ProgressDialog(this);
 
-        if (fAuth.getCurrentUser()!=null)
+        if (fAuth.getCurrentUser() != null)
         {
-            startActivity( new Intent( getApplicationContext(), HomePage.class ).putExtra("fragment", 0));
+            startActivity( new Intent( getApplicationContext(), HomePage.class ));
             finish();
         }
 

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Eventia</string>
     <string name="new_user_sign_up_here">New User? Sign Up here</string>
-    <string name="login">LOG IN</string>
+    <string name="login">Log In</string>
     <string name="password">Password</string>
     <string name="e_mail">E-mail</string>
     <string name="name_text">Name</string>

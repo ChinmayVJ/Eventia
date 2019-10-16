@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,7 @@ public class EventInfo extends AppCompatActivity {
 
     ImageButton backButton;
     RelativeLayout editEvent;
+    ProgressBar progressBar;
 
     FirebaseAuth fAuth;
     FirebaseUser fUser;
@@ -73,6 +75,7 @@ public class EventInfo extends AppCompatActivity {
         fDatabase = FirebaseDatabase.getInstance().getReference();
         fDatabase.keepSynced(true);
 
+        progressBar = findViewById(R.id.company_pic_loading_info);
         backButton = findViewById(R.id.toolbar_back_button);
         editEvent = findViewById(R.id.edit_event);
         companyPic = findViewById(R.id.company_pic_info);
@@ -88,6 +91,7 @@ public class EventInfo extends AppCompatActivity {
         cancel = findViewById(R.id.cancel_participation);
 
         pastEvent = false;
+        progressBar.setVisibility(View.INVISIBLE);
 
         eventInformationFunction(0);
         userInformationFunction(0);
@@ -97,6 +101,13 @@ public class EventInfo extends AppCompatActivity {
             public void onClick(View view) {
 
                 startActivity(new Intent(getApplicationContext(), CreateEvent.class).putExtra("status", event_id));
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
@@ -116,14 +127,14 @@ public class EventInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder warningDialogBuiler = new AlertDialog.Builder(EventInfo.this);
+                AlertDialog.Builder warningDialogBuilder = new AlertDialog.Builder(EventInfo.this);
 
                 LayoutInflater layoutInflater = LayoutInflater.from(EventInfo.this);
                 View alertView = layoutInflater.inflate(R.layout.alert_dialog_cancel, null);
 
-                warningDialogBuiler.setView(alertView);
+                warningDialogBuilder.setView(alertView);
 
-                final AlertDialog warningDialog = warningDialogBuiler.create();
+                final AlertDialog warningDialog = warningDialogBuilder.create();
                 warningDialog.show();
 
                 Button okButton = alertView.findViewById(R.id.ok_button_alert);
@@ -180,8 +191,10 @@ public class EventInfo extends AppCompatActivity {
                     evDescription.setText(evData.getDescription());
                     try {
                         String uri = evData.getImageUrl();
-                        if(!uri.equals("Not uploading"))
+                        if(!uri.equals("Not uploading")) {
+                            progressBar.setVisibility(View.VISIBLE);
                             Picasso.get().load(uri).into(companyPic);
+                        }
                     }catch (NullPointerException e){
                         e.printStackTrace();
                     }
@@ -212,7 +225,6 @@ public class EventInfo extends AppCompatActivity {
                 }
                 else if (choice == 2){
                     evData.setNoOfMembers(evData.getNoOfMembers() - 1);
-
                     fDatabase.child("Event Information").child(event_id).setValue(evData);
                 }
 
@@ -238,8 +250,9 @@ public class EventInfo extends AppCompatActivity {
                         if(memOfGrp.contains(event_id)) {
                             alreadyExists = true;
                             if(!pastEvent) {
-                                joinButton.setText("You are Going");
-                                joinButton.setEnabled(false);
+//                                joinButton.setText("You are Going");
+//                                joinButton.setEnabled(false);
+                                joinButton.setVisibility(View.INVISIBLE);
                                 cancel.setVisibility(View.VISIBLE);
                             }
                         }
@@ -247,16 +260,16 @@ public class EventInfo extends AppCompatActivity {
                             alreadyExists = false;
                             cancel.setVisibility(View.INVISIBLE);
                         }
-
-                        if(hostName.equals(userData.getName()) && !pastEvent){
-                            editEvent.setVisibility(View.VISIBLE);
-                        }
-                        else{
-                            editEvent.setVisibility(View.INVISIBLE);
-                        }
                     }
                     catch (Exception e){
                         alreadyExists = false;
+                        cancel.setVisibility(View.INVISIBLE);
+                    }
+                    if(hostName.equals(userData.getName()) && !pastEvent){
+                        editEvent.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        editEvent.setVisibility(View.INVISIBLE);
                     }
                 }
                 else if (choice == 1){

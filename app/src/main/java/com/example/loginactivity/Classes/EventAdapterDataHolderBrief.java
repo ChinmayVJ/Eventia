@@ -34,7 +34,7 @@ public class EventAdapterDataHolderBrief extends RecyclerView.Adapter<EventAdapt
             public void onClick(View view) {
                 int itemPosition = recyclerView.getChildLayoutPosition(view);
                 EventData item = eventList.get(itemPosition);
-//                mCtx.startActivity(new Intent(mCtx, EventInfo.class).putExtra("evId", item.getEvId()));
+                mCtx.startActivity(new Intent(mCtx, EventInfo.class).putExtra("evId", item.getEvId()));
             }
         });
         return new EvDataViewHolder(view);

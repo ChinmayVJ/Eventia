@@ -124,7 +124,6 @@ public class CreateEvent extends AppCompatActivity {
 
         if (!eventId.equals("new")){
 
-            toolbarTitle.setText("Edit Event Details");
             createEvent.setText("Apply Changes");
 
             fDatabase.child("Event Information").child(eventId).addValueEventListener(new ValueEventListener() {
@@ -142,8 +141,10 @@ public class CreateEvent extends AppCompatActivity {
                     timePickerText.setText(eventData.getStartTime());
                     try {
                         String uri = eventData.getImageUrl();
-                        if(!uri.equals("Not uploading"))
+                        if(!uri.equals("Not uploading")) {
+                            imageUrl = uri;
                             Picasso.get().load(uri).into(companyPic);
+                        }
                     }catch (NullPointerException e){
                         e.printStackTrace();
                     }
@@ -271,13 +272,12 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+        /*backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), HomePage.class));
                 finish();
             }
-        });
+        });*/
 
         fDatabase.child("User Information").child(fUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -352,9 +352,10 @@ public class CreateEvent extends AppCompatActivity {
 
     public void afterCreateButtonPressed(View view){
 
-        uploadImage();
-
-        readData();
+        if (imageUrl.equals("Still Uploading"))
+            uploadImage();
+        else
+            readData();
 
     }
 
@@ -373,24 +374,22 @@ public class CreateEvent extends AppCompatActivity {
         else
             id = eventId;
 
-        if (!imageUrl.equals("Not uploading")){
-
-            EventData evData = new EventData(id, hostName, group_name, event_name, description_, dateOfEvent, timeOfEvent, duration_, address, category);
+        EventData evData = new EventData(id, hostName, group_name, event_name, description_, dateOfEvent, timeOfEvent, duration_, address, category);
+        if (!imageUrl.equals("Not uploading") && !imageUrl.equals("Still Uploading"))
             evData.setImageUrl(imageUrl);
-            Log.e("compPic", imageUrl);
 
-            fDatabase.child("Event Information").child(id).setValue(evData);
-            Toast.makeText(getApplicationContext(), "Event Created", Toast.LENGTH_SHORT).show();
+        fDatabase.child("Event Information").child(id).setValue(evData);
+        Toast.makeText(getApplicationContext(), "Event Created", Toast.LENGTH_SHORT).show();
 
-            if (!eventId.equals("new")) {
-                Toast.makeText(getApplicationContext(), "Changes Applied", Toast.LENGTH_SHORT).show();
+        if (!eventId.equals("new")) {
+            Toast.makeText(getApplicationContext(), "Changes Applied", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getApplicationContext(), HomePage.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(getApplicationContext(), HomePage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         }
+        finish();
     }
 
 }

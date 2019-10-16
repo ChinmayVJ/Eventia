@@ -47,16 +47,6 @@ public class HomePage extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        Intent intent = getIntent();
-        int selectFragment = intent.getIntExtra("fragment", 0);
-
-        switch (selectFragment){
-            case 0:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
-                break;
-            case 1:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentExplore()).commit();
-                break;
-        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
     }
 }

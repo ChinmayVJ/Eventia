@@ -57,11 +57,21 @@
 
             </RelativeLayout>
 
+            <ProgressBar
+                android:id="@+id/company_pic_loading_info"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="48dp"
+                android:layout_marginLeft="45dp" />
+
             <!--Image of Event Handler's Organization-->
             <ImageView
                 android:id="@+id/company_pic_info"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:elevation="3dp"
                 android:src="@drawable/company_pic"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -78,7 +88,7 @@
                 android:textColor="#000000"
                 app:layout_constraintLeft_toRightOf="@id/company_pic_info"
                 app:layout_constraintTop_toTopOf="@id/company_pic_info"
-                android:layout_marginLeft="15dp"/>
+                android:layout_marginStart="15dp"/>
 
             <!--Type of Group-->
             <TextView
@@ -174,14 +184,14 @@
                         app:layout_constraintTop_toTopOf="@id/location_icon"
                         android:layout_marginLeft="10dp"/>
 
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/event_location_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pune, India"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="@id/event_location_new_event"
-                        app:layout_constraintTop_toBottomOf="@id/event_location_new_event"/>
+                        app:layout_constraintTop_toBottomOf="@id/event_location_new_event"/> -->
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -276,11 +286,12 @@
                 android:id="@+id/cancel_participation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Don't want to go ?"
-                app:layout_constraintTop_toBottomOf="@id/join_group_button"
+                android:text="You are going\nDon't want to go ?"
+                android:textAlignment="center"
+                app:layout_constraintTop_toBottomOf="@id/description_data"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="20dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

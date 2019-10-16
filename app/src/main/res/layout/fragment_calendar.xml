@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        layout="@layout/toolbar_layout_calendar" />
+    <!--<include
+        layout="@layout/toolbar_layout_calendar" /> -->
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,6 +35,15 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <TextView
+        android:id="@+id/no_events_today_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="No Events For Today"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Events for Tomorrow"
@@ -58,5 +67,14 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <TextView
+        android:id="@+id/no_events_tomorrow_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="No Events For Tomorrow"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

@@ -107,14 +107,15 @@ public class PastTab extends Fragment{
                             EventData eventData = child.getValue(EventData.class);
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                             Date strDate = new Date();
+                            Date todayDate = new Date();
                             try {
                                 strDate = sdf.parse(eventData.getDateOfEvent());
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            if (new Date().before(strDate)) {
-                            }
-                            else{
+                            if (todayDate.after(strDate) && !(todayDate.getDate() == strDate.getDate()
+                                    && todayDate.getMonth() == strDate.getMonth()
+                                    && todayDate.getYear() == strDate.getYear())) {
                                 eventDataArrayList.add(eventData);
                             }
                         }

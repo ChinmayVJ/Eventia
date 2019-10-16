@@ -7,6 +7,10 @@
         android:id="@+id/edit_profile_menu" />
 
     <item
+        android:title="Create Event"
+        android:id="@+id/create_event_menu" />
+
+    <item
         android:title="Log Out"
         android:id="@+id/logout_menu" />
 

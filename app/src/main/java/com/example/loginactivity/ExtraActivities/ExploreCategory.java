@@ -95,7 +95,7 @@ public class ExploreCategory extends AppCompatActivity {
                     }
                 }
 
-                EventAdapterDataHolder eventAdapterDataHolder = new EventAdapterDataHolder(getApplicationContext(), eventDataArrayList, dataRecyclerView);
+                EventAdapterDataHolder eventAdapterDataHolder = new EventAdapterDataHolder(ExploreCategory.this, eventDataArrayList, dataRecyclerView);
                 dataRecyclerView.setAdapter(eventAdapterDataHolder);
 
                 fDatabase.child("Event Information").removeEventListener(this);
