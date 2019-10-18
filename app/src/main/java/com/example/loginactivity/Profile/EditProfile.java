@@ -206,11 +206,9 @@ public class EditProfile extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Uri downloadUri = task.getResult();
                         imageUrl = downloadUri.toString();
-                        Log.e("imageupl", imageUrl );
 
                         readData();
                     }
-                    finish();
                 }
             });
 
@@ -238,9 +236,10 @@ public class EditProfile extends AppCompatActivity {
 
     public void afterEditProfileButtonPressed(View view){
 
-        uploadImage();
-
-        readData();
+        if (imageUrl.equals("Still Uploading"))
+            uploadImage();
+        else
+            readData();
     }
 
     public void readData(){
@@ -267,6 +266,8 @@ public class EditProfile extends AppCompatActivity {
                 userData.setGender(gender);
                 userData.setAddress(user_address);
                 userData.setUserInterests(ints);
+                if (imageUrl != "Not uploading")
+                    userData.setImageUrl(imageUrl);
 
                 fDatabase.setValue(userData);
                 fDatabase.removeEventListener(this);
@@ -278,9 +279,6 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        if(imageUrl.equals("Not uploading")) {
-            Toast.makeText(this, "Data Updated", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+        finish();
     }
 }

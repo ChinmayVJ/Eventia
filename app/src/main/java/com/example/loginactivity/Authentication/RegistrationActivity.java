@@ -84,6 +84,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
+
                             FirebaseUser user = fAuth.getCurrentUser();
                             String fUid = user.getUid();
 

@@ -9,8 +9,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MeetUp"
-        android:textSize="40sp"
+        android:text="Eventia"
+        android:textSize="55sp"
         android:textColor="@color/colorPrimary"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -26,7 +26,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="130dp"
-        android:inputType="text"
+        android:inputType="textPersonName|textCapWords"
         android:hint="@string/name_text"
         android:background="@drawable/edittext_shape"/>
 

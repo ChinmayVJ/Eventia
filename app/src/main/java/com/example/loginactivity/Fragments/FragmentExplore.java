@@ -80,7 +80,7 @@ public class FragmentExplore extends Fragment {
 //                            category = "Dance";
                             break;
                         case 11:
-                            startActivity(new Intent(getActivity(), ExploreCategory.class).putExtra("evType","Health & Wellness"));
+                            startActivity(new Intent(getActivity(), ExploreCategory.class).putExtra("evType","Fashion"));
 //                            category = "Fashion";
                             break;
                         case 12:
